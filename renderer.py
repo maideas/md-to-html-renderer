@@ -136,14 +136,17 @@ class GitHubMarkdown:
             md.use(front_matter_plugin)
             md.add_render_rule("front_matter", lambda *_a, **_k: "")
 
-        # Token-tree transformations, in dependency order.
+        # Token-tree transformations. Order matters: emoji must be expanded
+        # before heading slugs are computed, or a ":tada:" shortcode would end
+        # up in the id instead of the emoji character it stands for (which the
+        # slugger then drops, exactly as GitHub does).
         md.core.ruler.push("gh_use_del", self._rule_strikethrough_tag)
         md.core.ruler.push("gh_table_align", self._rule_table_align)
+        if opts.emoji:
+            md.core.ruler.push("gh_emoji", self._rule_emoji)
         md.core.ruler.push("gh_heading_anchors", self._rule_heading_anchors)
         md.core.ruler.push("gh_alert_icons", self._rule_alert_icons)
         md.core.ruler.push("gh_link_rel", self._rule_link_rel)
-        if opts.emoji:
-            md.core.ruler.push("gh_emoji", self._rule_emoji)
 
         # Registered directly rather than via ``md.add_render_rule``: that helper
         # rebinds the callable to the *renderer* instance, which would hide our
