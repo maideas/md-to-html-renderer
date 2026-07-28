@@ -6,119 +6,221 @@
 <meta name="color-scheme" content="light dark">
 <title>Kitchen Sink</title>
 <style>
-/* ==========================================================================
-   github-markdown.css
-   Document styling for rendered Markdown, matching GitHub's Primer tokens.
+/* GitHub palette -- GitHub's Primer design tokens, as used on github.com.
+   Generated from github.json by tools/make_palette.py -- edit the JSON, not this file.
 
-   Palette resolution order:
-     1. [data-theme="light"|"dark"] on any ancestor  -> explicit override
-     2. prefers-color-scheme                         -> follows the OS
-     3. otherwise                                    -> light
+   Pair with markdown.css, which holds every rule and no colours.
 
-   Pair with github-syntax.css for code highlighting.
-   ========================================================================== */
+     <html>                                   this palette, following the OS
+     <html data-theme="dark">                 this palette, pinned dark
+     <html data-palette="github">                explicit, when several are loaded
+     <div  data-palette="github" data-theme="light">   one subtree only
 
-:root,
-[data-theme="light"] {
+   Set data-palette and data-theme on the same element. */
+
+:root:not([data-palette]),
+[data-palette="github"] {
   color-scheme: light;
-
-  --gh-canvas-default: #ffffff;
-  --gh-canvas-subtle: #f6f8fa;
-  --gh-canvas-inset: #f6f8fa;
-
-  --gh-fg-default: #1f2328;
-  --gh-fg-muted: #59636e;
-  --gh-fg-subtle: #818b98;
-  --gh-fg-on-emphasis: #ffffff;
-
-  --gh-border-default: #d1d9e0;
-  --gh-border-muted: #d1d9e0b3;
-
-  --gh-neutral-muted: #818b981f;
-  --gh-accent-fg: #0969da;
-  --gh-accent-emphasis: #0969da;
-  --gh-accent-muted: #54aeff66;
-  --gh-success-fg: #1a7f37;
-  --gh-success-emphasis: #1f883d;
-  --gh-attention-fg: #9a6700;
-  --gh-attention-emphasis: #9a6700;
-  --gh-attention-muted: #fff8c5;
-  --gh-danger-fg: #d1242f;
-  --gh-danger-emphasis: #cf222e;
-  --gh-done-fg: #8250df;
-  --gh-done-emphasis: #8250df;
-
-  --gh-diff-add-bg: #dafbe1;
-  --gh-diff-del-bg: #ffebe9;
+  --md-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --md-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --md-font-size: 16px;
+  --md-font-size-code: 85%;
+  --md-font-size-small: 12px;
+  --md-line-height: 1.5;
+  --md-line-height-code: 1.45;
+  --md-radius: 6px;
+  --md-radius-large: 6px;
+  --md-border-accent-width: 0.25em;
+  --md-space-block: 16px;
+  --md-space-heading-top: 24px;
+  --md-page-max-width: 1012px;
+  --md-page-padding: 32px 24px 64px;
+  --md-accent-emphasis: #0969da;
+  --md-accent-fg: #0969da;
+  --md-accent-muted: #54aeff66;
+  --md-attention-emphasis: #9a6700;
+  --md-attention-fg: #9a6700;
+  --md-attention-muted: #fff8c5;
+  --md-border-default: #d1d9e0;
+  --md-border-muted: #d1d9e0b3;
+  --md-canvas-default: #ffffff;
+  --md-canvas-inset: #f6f8fa;
+  --md-canvas-subtle: #f6f8fa;
+  --md-danger-emphasis: #cf222e;
+  --md-danger-fg: #d1242f;
+  --md-diff-add-bg: #dafbe1;
+  --md-diff-del-bg: #ffebe9;
+  --md-done-emphasis: #8250df;
+  --md-done-fg: #8250df;
+  --md-fg-default: #1f2328;
+  --md-fg-muted: #59636e;
+  --md-fg-on-emphasis: #ffffff;
+  --md-fg-subtle: #818b98;
+  --md-neutral-muted: #818b981f;
+  --md-success-emphasis: #1f883d;
+  --md-success-fg: #1a7f37;
+  --md-syn-brackethighlighter-unmatched: #82071e;
+  --md-syn-carriage-return-bg: #cf222e;
+  --md-syn-carriage-return-text: #f6f8fa;
+  --md-syn-comment: #59636e;
+  --md-syn-constant: #0550ae;
+  --md-syn-entity: #6639ba;
+  --md-syn-entity-tag: #0550ae;
+  --md-syn-fg-default: #1f2328;
+  --md-syn-invalid-illegal-bg: #82071e;
+  --md-syn-invalid-illegal-text: #f6f8fa;
+  --md-syn-keyword: #cf222e;
+  --md-syn-markup-bold: #1f2328;
+  --md-syn-markup-changed-bg: #ffd8b5;
+  --md-syn-markup-changed-text: #953800;
+  --md-syn-markup-deleted-bg: #ffebe9;
+  --md-syn-markup-deleted-text: #82071e;
+  --md-syn-markup-heading: #0550ae;
+  --md-syn-markup-ignored-bg: #0550ae;
+  --md-syn-markup-ignored-text: #d1d9e0;
+  --md-syn-markup-inserted-bg: #dafbe1;
+  --md-syn-markup-inserted-text: #116329;
+  --md-syn-markup-italic: #1f2328;
+  --md-syn-markup-list: #3b2300;
+  --md-syn-meta-diff-range: #8250df;
+  --md-syn-storage-modifier-import: #1f2328;
+  --md-syn-string: #0a3069;
+  --md-syn-string-regexp: #116329;
+  --md-syn-sublimelinter-gutter-mark: #818b98;
+  --md-syn-variable: #953800;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-palette]):not([data-theme="light"]),
+  [data-palette="github"]:not([data-theme="light"]) {
     color-scheme: dark;
-
-    --gh-canvas-default: #0d1117;
-    --gh-canvas-subtle: #151b23;
-    --gh-canvas-inset: #010409;
-
-    --gh-fg-default: #f0f6fc;
-    --gh-fg-muted: #9198a1;
-    --gh-fg-subtle: #6e7681;
-    --gh-fg-on-emphasis: #ffffff;
-
-    --gh-border-default: #3d444d;
-    --gh-border-muted: #3d444db3;
-
-    --gh-neutral-muted: #656c7666;
-    --gh-accent-fg: #4493f8;
-    --gh-accent-emphasis: #1f6feb;
-    --gh-accent-muted: #388bfd66;
-    --gh-success-fg: #3fb950;
-    --gh-success-emphasis: #238636;
-    --gh-attention-fg: #d29922;
-    --gh-attention-emphasis: #9e6a03;
-    --gh-attention-muted: #bb800926;
-    --gh-danger-fg: #f85149;
-    --gh-danger-emphasis: #da3633;
-    --gh-done-fg: #ab7df8;
-    --gh-done-emphasis: #8957e5;
-
-    --gh-diff-add-bg: #033a16;
-    --gh-diff-del-bg: #67060c;
+    --md-accent-emphasis: #1f6feb;
+    --md-accent-fg: #4493f8;
+    --md-accent-muted: #388bfd66;
+    --md-attention-emphasis: #9e6a03;
+    --md-attention-fg: #d29922;
+    --md-attention-muted: #bb800926;
+    --md-border-default: #3d444d;
+    --md-border-muted: #3d444db3;
+    --md-canvas-default: #0d1117;
+    --md-canvas-inset: #010409;
+    --md-canvas-subtle: #151b23;
+    --md-danger-emphasis: #da3633;
+    --md-danger-fg: #f85149;
+    --md-diff-add-bg: #033a16;
+    --md-diff-del-bg: #67060c;
+    --md-done-emphasis: #8957e5;
+    --md-done-fg: #ab7df8;
+    --md-fg-default: #f0f6fc;
+    --md-fg-muted: #9198a1;
+    --md-fg-on-emphasis: #ffffff;
+    --md-fg-subtle: #6e7681;
+    --md-neutral-muted: #656c7666;
+    --md-success-emphasis: #238636;
+    --md-success-fg: #3fb950;
+    --md-syn-brackethighlighter-unmatched: #f85149;
+    --md-syn-carriage-return-bg: #b62324;
+    --md-syn-carriage-return-text: #f0f6fc;
+    --md-syn-comment: #9198a1;
+    --md-syn-constant: #79c0ff;
+    --md-syn-entity: #d2a8ff;
+    --md-syn-entity-tag: #7ee787;
+    --md-syn-fg-default: #f0f6fc;
+    --md-syn-invalid-illegal-bg: #8e1519;
+    --md-syn-invalid-illegal-text: #f0f6fc;
+    --md-syn-keyword: #ff7b72;
+    --md-syn-markup-bold: #f0f6fc;
+    --md-syn-markup-changed-bg: #5a1e02;
+    --md-syn-markup-changed-text: #ffdfb6;
+    --md-syn-markup-deleted-bg: #67060c;
+    --md-syn-markup-deleted-text: #ffdcd7;
+    --md-syn-markup-heading: #1f6feb;
+    --md-syn-markup-ignored-bg: #1158c7;
+    --md-syn-markup-ignored-text: #f0f6fc;
+    --md-syn-markup-inserted-bg: #033a16;
+    --md-syn-markup-inserted-text: #aff5b4;
+    --md-syn-markup-italic: #f0f6fc;
+    --md-syn-markup-list: #f2cc60;
+    --md-syn-meta-diff-range: #d2a8ff;
+    --md-syn-storage-modifier-import: #f0f6fc;
+    --md-syn-string: #a5d6ff;
+    --md-syn-string-regexp: #7ee787;
+    --md-syn-sublimelinter-gutter-mark: #3d444d;
+    --md-syn-variable: #ffa657;
   }
 }
 
-[data-theme="dark"] {
+:root:not([data-palette])[data-theme="dark"],
+[data-palette="github"][data-theme="dark"] {
   color-scheme: dark;
-
-  --gh-canvas-default: #0d1117;
-  --gh-canvas-subtle: #151b23;
-  --gh-canvas-inset: #010409;
-
-  --gh-fg-default: #f0f6fc;
-  --gh-fg-muted: #9198a1;
-  --gh-fg-subtle: #6e7681;
-  --gh-fg-on-emphasis: #ffffff;
-
-  --gh-border-default: #3d444d;
-  --gh-border-muted: #3d444db3;
-
-  --gh-neutral-muted: #656c7666;
-  --gh-accent-fg: #4493f8;
-  --gh-accent-emphasis: #1f6feb;
-  --gh-accent-muted: #388bfd66;
-  --gh-success-fg: #3fb950;
-  --gh-success-emphasis: #238636;
-  --gh-attention-fg: #d29922;
-  --gh-attention-emphasis: #9e6a03;
-  --gh-attention-muted: #bb800926;
-  --gh-danger-fg: #f85149;
-  --gh-danger-emphasis: #da3633;
-  --gh-done-fg: #ab7df8;
-  --gh-done-emphasis: #8957e5;
-
-  --gh-diff-add-bg: #033a16;
-  --gh-diff-del-bg: #67060c;
+  --md-accent-emphasis: #1f6feb;
+  --md-accent-fg: #4493f8;
+  --md-accent-muted: #388bfd66;
+  --md-attention-emphasis: #9e6a03;
+  --md-attention-fg: #d29922;
+  --md-attention-muted: #bb800926;
+  --md-border-default: #3d444d;
+  --md-border-muted: #3d444db3;
+  --md-canvas-default: #0d1117;
+  --md-canvas-inset: #010409;
+  --md-canvas-subtle: #151b23;
+  --md-danger-emphasis: #da3633;
+  --md-danger-fg: #f85149;
+  --md-diff-add-bg: #033a16;
+  --md-diff-del-bg: #67060c;
+  --md-done-emphasis: #8957e5;
+  --md-done-fg: #ab7df8;
+  --md-fg-default: #f0f6fc;
+  --md-fg-muted: #9198a1;
+  --md-fg-on-emphasis: #ffffff;
+  --md-fg-subtle: #6e7681;
+  --md-neutral-muted: #656c7666;
+  --md-success-emphasis: #238636;
+  --md-success-fg: #3fb950;
+  --md-syn-brackethighlighter-unmatched: #f85149;
+  --md-syn-carriage-return-bg: #b62324;
+  --md-syn-carriage-return-text: #f0f6fc;
+  --md-syn-comment: #9198a1;
+  --md-syn-constant: #79c0ff;
+  --md-syn-entity: #d2a8ff;
+  --md-syn-entity-tag: #7ee787;
+  --md-syn-fg-default: #f0f6fc;
+  --md-syn-invalid-illegal-bg: #8e1519;
+  --md-syn-invalid-illegal-text: #f0f6fc;
+  --md-syn-keyword: #ff7b72;
+  --md-syn-markup-bold: #f0f6fc;
+  --md-syn-markup-changed-bg: #5a1e02;
+  --md-syn-markup-changed-text: #ffdfb6;
+  --md-syn-markup-deleted-bg: #67060c;
+  --md-syn-markup-deleted-text: #ffdcd7;
+  --md-syn-markup-heading: #1f6feb;
+  --md-syn-markup-ignored-bg: #1158c7;
+  --md-syn-markup-ignored-text: #f0f6fc;
+  --md-syn-markup-inserted-bg: #033a16;
+  --md-syn-markup-inserted-text: #aff5b4;
+  --md-syn-markup-italic: #f0f6fc;
+  --md-syn-markup-list: #f2cc60;
+  --md-syn-meta-diff-range: #d2a8ff;
+  --md-syn-storage-modifier-import: #f0f6fc;
+  --md-syn-string: #a5d6ff;
+  --md-syn-string-regexp: #7ee787;
+  --md-syn-sublimelinter-gutter-mark: #3d444d;
+  --md-syn-variable: #ffa657;
 }
+
+/* ==========================================================================
+   markdown.css -- structure only. Contains no colour values.
+
+   Every colour, font and shape comes from a --md-* custom property supplied by
+   a palette file in palettes/. Load exactly one palette, or load several and
+   choose between them with the data-palette attribute:
+
+     <link rel="stylesheet" href="palettes/github.css">
+     <link rel="stylesheet" href="markdown.css">
+
+   The only literal colours below are in the @media print block, which is
+   deliberately black on white whatever the palette says.
+   ========================================================================== */
 
 /* --------------------------------------------------------------------------
    Base
@@ -128,12 +230,11 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   margin: 0;
-  color: var(--gh-fg-default);
-  background-color: var(--gh-canvas-default);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 16px;
-  line-height: 1.5;
+  color: var(--md-fg-default);
+  background-color: var(--md-canvas-default);
+  font-family: var(--md-font-body);
+  font-size: var(--md-font-size);
+  line-height: var(--md-line-height);
   word-wrap: break-word;
   scroll-behavior: smooth;
 }
@@ -170,7 +271,7 @@
 
 .markdown-body a {
   background-color: transparent;
-  color: var(--gh-accent-fg);
+  color: var(--md-accent-fg);
   text-decoration: none;
 }
 
@@ -187,7 +288,7 @@
 .markdown-body button:focus,
 .markdown-body input:focus,
 .markdown-body [tabindex]:focus {
-  outline: 2px solid var(--gh-accent-fg);
+  outline: 2px solid var(--md-accent-fg);
   outline-offset: -2px;
 }
 
@@ -209,16 +310,16 @@
 .markdown-body pre,
 .markdown-body details {
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
 }
 
 .markdown-body hr {
   box-sizing: content-box;
   height: 0.25em;
   padding: 0;
-  margin: 24px 0;
+  margin: var(--md-space-heading-top) 0;
   overflow: hidden;
-  background-color: var(--gh-border-default);
+  background-color: var(--md-border-default);
   border: 0;
 }
 
@@ -243,8 +344,8 @@
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
+  margin-top: var(--md-space-heading-top);
+  margin-bottom: var(--md-space-block);
   font-weight: 600;
   line-height: 1.25;
 }
@@ -252,13 +353,13 @@
 .markdown-body h1 {
   padding-bottom: 0.3em;
   font-size: 2em;
-  border-bottom: 1px solid var(--gh-border-muted);
+  border-bottom: 1px solid var(--md-border-muted);
 }
 
 .markdown-body h2 {
   padding-bottom: 0.3em;
   font-size: 1.5em;
-  border-bottom: 1px solid var(--gh-border-muted);
+  border-bottom: 1px solid var(--md-border-muted);
 }
 
 .markdown-body h3 {
@@ -275,7 +376,7 @@
 
 .markdown-body h6 {
   font-size: 0.85em;
-  color: var(--gh-fg-muted);
+  color: var(--md-fg-muted);
 }
 
 /* Heading anchor: hidden until the heading is hovered or the link is focused. */
@@ -284,7 +385,7 @@
   padding-right: 4px;
   margin-left: -20px;
   line-height: 1;
-  color: var(--gh-fg-default);
+  color: var(--md-fg-default);
 }
 
 .markdown-body .anchor:focus {
@@ -345,8 +446,8 @@
 }
 
 .markdown-body mark {
-  background-color: var(--gh-attention-muted);
-  color: var(--gh-fg-default);
+  background-color: var(--md-attention-muted);
+  color: var(--md-fg-default);
 }
 
 .markdown-body del {
@@ -366,16 +467,15 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+  font: 11px var(--md-font-mono);
   line-height: 10px;
-  color: var(--gh-fg-default);
+  color: var(--md-fg-default);
   vertical-align: middle;
-  background-color: var(--gh-canvas-subtle);
-  border: solid 1px var(--gh-border-default);
-  border-bottom-color: var(--gh-border-default);
-  border-radius: 6px;
-  box-shadow: inset 0 -1px 0 var(--gh-border-default);
+  background-color: var(--md-canvas-subtle);
+  border: solid 1px var(--md-border-default);
+  border-bottom-color: var(--md-border-default);
+  border-radius: var(--md-radius);
+  box-shadow: inset 0 -1px 0 var(--md-border-default);
 }
 
 /* --------------------------------------------------------------------------
@@ -426,7 +526,7 @@
 }
 
 .markdown-body li > p {
-  margin-top: 16px;
+  margin-top: var(--md-space-block);
 }
 
 .markdown-body li + li {
@@ -439,7 +539,7 @@
 
 .markdown-body dl dt {
   padding: 0;
-  margin-top: 16px;
+  margin-top: var(--md-space-block);
   font-size: 1em;
   font-style: italic;
   font-weight: 600;
@@ -447,7 +547,7 @@
 
 .markdown-body dl dd {
   padding: 0 16px;
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
 }
 
 /* Task lists */
@@ -493,8 +593,8 @@
 
 .markdown-body blockquote {
   padding: 0 1em;
-  color: var(--gh-fg-muted);
-  border-left: 0.25em solid var(--gh-border-default);
+  color: var(--md-fg-muted);
+  border-left: var(--md-border-accent-width) solid var(--md-border-default);
 }
 
 .markdown-body blockquote > :first-child {
@@ -511,9 +611,9 @@
 
 .markdown-body .markdown-alert {
   padding: 0.5rem 1rem;
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
   color: inherit;
-  border-left: 0.25em solid var(--gh-border-default);
+  border-left: var(--md-border-accent-width) solid var(--md-border-default);
 }
 
 .markdown-body .markdown-alert > :first-child {
@@ -539,43 +639,43 @@
 }
 
 .markdown-body .markdown-alert-note {
-  border-left-color: var(--gh-accent-emphasis);
+  border-left-color: var(--md-accent-emphasis);
 }
 
 .markdown-body .markdown-alert-note .markdown-alert-title {
-  color: var(--gh-accent-fg);
+  color: var(--md-accent-fg);
 }
 
 .markdown-body .markdown-alert-tip {
-  border-left-color: var(--gh-success-emphasis);
+  border-left-color: var(--md-success-emphasis);
 }
 
 .markdown-body .markdown-alert-tip .markdown-alert-title {
-  color: var(--gh-success-fg);
+  color: var(--md-success-fg);
 }
 
 .markdown-body .markdown-alert-important {
-  border-left-color: var(--gh-done-emphasis);
+  border-left-color: var(--md-done-emphasis);
 }
 
 .markdown-body .markdown-alert-important .markdown-alert-title {
-  color: var(--gh-done-fg);
+  color: var(--md-done-fg);
 }
 
 .markdown-body .markdown-alert-warning {
-  border-left-color: var(--gh-attention-emphasis);
+  border-left-color: var(--md-attention-emphasis);
 }
 
 .markdown-body .markdown-alert-warning .markdown-alert-title {
-  color: var(--gh-attention-fg);
+  color: var(--md-attention-fg);
 }
 
 .markdown-body .markdown-alert-caution {
-  border-left-color: var(--gh-danger-emphasis);
+  border-left-color: var(--md-danger-emphasis);
 }
 
 .markdown-body .markdown-alert-caution .markdown-alert-title {
-  color: var(--gh-danger-fg);
+  color: var(--md-danger-fg);
 }
 
 /* --------------------------------------------------------------------------
@@ -586,19 +686,18 @@
 .markdown-body tt,
 .markdown-body samp,
 .markdown-body pre {
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
-  font-size: 12px;
+  font-family: var(--md-font-mono);
+  font-size: var(--md-font-size-small);
 }
 
 .markdown-body code,
 .markdown-body tt {
   padding: 0.2em 0.4em;
   margin: 0;
-  font-size: 85%;
+  font-size: var(--md-font-size-code);
   white-space: break-spaces;
-  background-color: var(--gh-neutral-muted);
-  border-radius: 6px;
+  background-color: var(--md-neutral-muted);
+  border-radius: var(--md-radius);
 }
 
 .markdown-body code br,
@@ -611,17 +710,17 @@
 }
 
 .markdown-body samp {
-  font-size: 85%;
+  font-size: var(--md-font-size-code);
 }
 
 .markdown-body pre {
   padding: 16px;
   overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  color: var(--gh-fg-default);
-  background-color: var(--gh-canvas-subtle);
-  border-radius: 6px;
+  font-size: var(--md-font-size-code);
+  line-height: var(--md-line-height-code);
+  color: var(--md-fg-default);
+  background-color: var(--md-canvas-subtle);
+  border-radius: var(--md-radius);
   word-wrap: normal;
 }
 
@@ -652,7 +751,7 @@
 /* The <div class="highlight"> wrapper must not add spacing of its own; the
    <pre> inside already carries the block margin. */
 .markdown-body .highlight {
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
 }
 
 .markdown-body .highlight pre {
@@ -662,7 +761,7 @@
 
 .markdown-body .highlight pre,
 .markdown-body pre {
-  background-color: var(--gh-canvas-subtle);
+  background-color: var(--md-canvas-subtle);
 }
 
 /* --------------------------------------------------------------------------
@@ -685,7 +784,7 @@
 .markdown-body table th,
 .markdown-body table td {
   padding: 6px 13px;
-  border: 1px solid var(--gh-border-default);
+  border: 1px solid var(--md-border-default);
 }
 
 .markdown-body table td > :last-child {
@@ -693,12 +792,12 @@
 }
 
 .markdown-body table tr {
-  background-color: var(--gh-canvas-default);
-  border-top: 1px solid var(--gh-border-muted);
+  background-color: var(--md-canvas-default);
+  border-top: 1px solid var(--md-border-muted);
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: var(--gh-canvas-subtle);
+  background-color: var(--md-canvas-subtle);
 }
 
 .markdown-body table img {
@@ -712,7 +811,7 @@
 .markdown-body img {
   max-width: 100%;
   box-sizing: content-box;
-  background-color: var(--gh-canvas-default);
+  background-color: var(--md-canvas-default);
   border-style: none;
 }
 
@@ -747,9 +846,9 @@
    -------------------------------------------------------------------------- */
 
 .markdown-body .footnotes {
-  font-size: 12px;
-  color: var(--gh-fg-muted);
-  border-top: 1px solid var(--gh-border-default);
+  font-size: var(--md-font-size-small);
+  color: var(--md-fg-muted);
+  border-top: 1px solid var(--md-border-default);
   margin-top: 24px;
 }
 
@@ -760,7 +859,7 @@
 .markdown-body .footnotes ol ul {
   display: inline-block;
   padding-left: 16px;
-  margin-top: 16px;
+  margin-top: var(--md-space-block);
 }
 
 .markdown-body .footnotes li {
@@ -775,12 +874,12 @@
   left: -24px;
   pointer-events: none;
   content: "";
-  border: 2px solid var(--gh-accent-emphasis);
-  border-radius: 6px;
+  border: 2px solid var(--md-accent-emphasis);
+  border-radius: var(--md-radius);
 }
 
 .markdown-body .footnotes li:target {
-  color: var(--gh-fg-default);
+  color: var(--md-fg-default);
 }
 
 .markdown-body .footnotes .data-footnote-backref g-emoji,
@@ -837,116 +936,6 @@
   }
 }
 
-/* ==========================================================================
-   github-syntax.css
-   Maps Pygments' token classes onto GitHub's "prettylights" syntax palette.
-
-   Because the mapping goes through CSS variables, switching between light and
-   dark is a pure CSS operation -- the HTML never has to be re-rendered.
-
-   Theme resolution matches github-markdown.css:
-     [data-theme="light"|"dark"]  >  prefers-color-scheme  >  light
-   ========================================================================== */
-
-:root,
-[data-theme="light"] {
-  --gh-syn-comment: #59636e;
-  --gh-syn-constant: #0550ae;
-  --gh-syn-entity: #6639ba;
-  --gh-syn-storage-modifier-import: #1f2328;
-  --gh-syn-entity-tag: #0550ae;
-  --gh-syn-keyword: #cf222e;
-  --gh-syn-string: #0a3069;
-  --gh-syn-variable: #953800;
-  --gh-syn-brackethighlighter-unmatched: #82071e;
-  --gh-syn-invalid-illegal-text: #f6f8fa;
-  --gh-syn-invalid-illegal-bg: #82071e;
-  --gh-syn-carriage-return-text: #f6f8fa;
-  --gh-syn-carriage-return-bg: #cf222e;
-  --gh-syn-string-regexp: #116329;
-  --gh-syn-markup-list: #3b2300;
-  --gh-syn-markup-heading: #0550ae;
-  --gh-syn-markup-italic: #1f2328;
-  --gh-syn-markup-bold: #1f2328;
-  --gh-syn-markup-deleted-text: #82071e;
-  --gh-syn-markup-deleted-bg: #ffebe9;
-  --gh-syn-markup-inserted-text: #116329;
-  --gh-syn-markup-inserted-bg: #dafbe1;
-  --gh-syn-markup-changed-text: #953800;
-  --gh-syn-markup-changed-bg: #ffd8b5;
-  --gh-syn-markup-ignored-text: #d1d9e0;
-  --gh-syn-markup-ignored-bg: #0550ae;
-  --gh-syn-meta-diff-range: #8250df;
-  --gh-syn-sublimelinter-gutter-mark: #818b98;
-  --gh-syn-fg-default: #1f2328;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --gh-syn-comment: #9198a1;
-    --gh-syn-constant: #79c0ff;
-    --gh-syn-entity: #d2a8ff;
-    --gh-syn-storage-modifier-import: #f0f6fc;
-    --gh-syn-entity-tag: #7ee787;
-    --gh-syn-keyword: #ff7b72;
-    --gh-syn-string: #a5d6ff;
-    --gh-syn-variable: #ffa657;
-    --gh-syn-brackethighlighter-unmatched: #f85149;
-    --gh-syn-invalid-illegal-text: #f0f6fc;
-    --gh-syn-invalid-illegal-bg: #8e1519;
-    --gh-syn-carriage-return-text: #f0f6fc;
-    --gh-syn-carriage-return-bg: #b62324;
-    --gh-syn-string-regexp: #7ee787;
-    --gh-syn-markup-list: #f2cc60;
-    --gh-syn-markup-heading: #1f6feb;
-    --gh-syn-markup-italic: #f0f6fc;
-    --gh-syn-markup-bold: #f0f6fc;
-    --gh-syn-markup-deleted-text: #ffdcd7;
-    --gh-syn-markup-deleted-bg: #67060c;
-    --gh-syn-markup-inserted-text: #aff5b4;
-    --gh-syn-markup-inserted-bg: #033a16;
-    --gh-syn-markup-changed-text: #ffdfb6;
-    --gh-syn-markup-changed-bg: #5a1e02;
-    --gh-syn-markup-ignored-text: #f0f6fc;
-    --gh-syn-markup-ignored-bg: #1158c7;
-    --gh-syn-meta-diff-range: #d2a8ff;
-    --gh-syn-sublimelinter-gutter-mark: #3d444d;
-    --gh-syn-fg-default: #f0f6fc;
-  }
-}
-
-[data-theme="dark"] {
-  --gh-syn-comment: #9198a1;
-  --gh-syn-constant: #79c0ff;
-  --gh-syn-entity: #d2a8ff;
-  --gh-syn-storage-modifier-import: #f0f6fc;
-  --gh-syn-entity-tag: #7ee787;
-  --gh-syn-keyword: #ff7b72;
-  --gh-syn-string: #a5d6ff;
-  --gh-syn-variable: #ffa657;
-  --gh-syn-brackethighlighter-unmatched: #f85149;
-  --gh-syn-invalid-illegal-text: #f0f6fc;
-  --gh-syn-invalid-illegal-bg: #8e1519;
-  --gh-syn-carriage-return-text: #f0f6fc;
-  --gh-syn-carriage-return-bg: #b62324;
-  --gh-syn-string-regexp: #7ee787;
-  --gh-syn-markup-list: #f2cc60;
-  --gh-syn-markup-heading: #1f6feb;
-  --gh-syn-markup-italic: #f0f6fc;
-  --gh-syn-markup-bold: #f0f6fc;
-  --gh-syn-markup-deleted-text: #ffdcd7;
-  --gh-syn-markup-deleted-bg: #67060c;
-  --gh-syn-markup-inserted-text: #aff5b4;
-  --gh-syn-markup-inserted-bg: #033a16;
-  --gh-syn-markup-changed-text: #ffdfb6;
-  --gh-syn-markup-changed-bg: #5a1e02;
-  --gh-syn-markup-ignored-text: #f0f6fc;
-  --gh-syn-markup-ignored-bg: #1158c7;
-  --gh-syn-meta-diff-range: #d2a8ff;
-  --gh-syn-sublimelinter-gutter-mark: #3d444d;
-  --gh-syn-fg-default: #f0f6fc;
-}
-
 /* --------------------------------------------------------------------------
    Comments
    -------------------------------------------------------------------------- */
@@ -956,18 +945,18 @@
 .highlight .cm,  /* Comment.Multiline    */
 .highlight .c1,  /* Comment.Single       */
 .highlight .cs { /* Comment.Special      */
-  color: var(--gh-syn-comment);
+  color: var(--md-syn-comment);
   font-style: normal;
 }
 
 /* Preprocessor directives read as keywords on GitHub (#include, #define). */
 .highlight .cp {
-  color: var(--gh-syn-keyword);
+  color: var(--md-syn-keyword);
 }
 
 /* ...but the file they name is a string (<stdio.h>). */
 .highlight .cpf {
-  color: var(--gh-syn-string);
+  color: var(--md-syn-string);
 }
 
 /* --------------------------------------------------------------------------
@@ -982,12 +971,12 @@
 .highlight .kt,  /* Keyword.Type        */
 .highlight .o,   /* Operator            */
 .highlight .ow { /* Operator.Word       */
-  color: var(--gh-syn-keyword);
+  color: var(--md-syn-keyword);
 }
 
 /* true / false / nil / None are language constants, not keywords. */
 .highlight .kc {
-  color: var(--gh-syn-constant);
+  color: var(--md-syn-constant);
 }
 
 /* --------------------------------------------------------------------------
@@ -1004,14 +993,14 @@
 .highlight .x,   /* Other         */
 .highlight .esc, /* Escape        */
 .highlight .g {  /* Generic       */
-  color: var(--gh-syn-fg-default);
+  color: var(--md-syn-fg-default);
 }
 
 .highlight .nc,  /* Name.Class     */
 .highlight .nd,  /* Name.Decorator */
 .highlight .nf,  /* Name.Function  */
 .highlight .fm { /* Name.Function.Magic */
-  color: var(--gh-syn-entity);
+  color: var(--md-syn-entity);
 }
 
 .highlight .na,  /* Name.Attribute */
@@ -1020,17 +1009,17 @@
 .highlight .ni,  /* Name.Entity    */
 .highlight .nl,  /* Name.Label     */
 .highlight .no { /* Name.Constant  */
-  color: var(--gh-syn-constant);
+  color: var(--md-syn-constant);
 }
 
 /* HTML/XML element names. */
 .highlight .nt {
-  color: var(--gh-syn-entity-tag);
+  color: var(--md-syn-entity-tag);
 }
 
 /* import / package paths keep the default foreground on GitHub. */
 .highlight .nn {
-  color: var(--gh-syn-storage-modifier-import);
+  color: var(--md-syn-storage-modifier-import);
 }
 
 .highlight .nv,  /* Name.Variable          */
@@ -1039,7 +1028,7 @@
 .highlight .vi,  /* Name.Variable.Instance */
 .highlight .vm,  /* Name.Variable.Magic    */
 .highlight .bp { /* Name.Builtin.Pseudo (self, this) */
-  color: var(--gh-syn-variable);
+  color: var(--md-syn-variable);
 }
 
 /* --------------------------------------------------------------------------
@@ -1053,7 +1042,7 @@
 .highlight .mi,  /* Number.Integer    */
 .highlight .mo,  /* Number.Oct        */
 .highlight .il { /* Number.Integer.Long */
-  color: var(--gh-syn-constant);
+  color: var(--md-syn-constant);
 }
 
 .highlight .s,   /* String           */
@@ -1066,26 +1055,26 @@
 .highlight .sh,  /* String.Heredoc   */
 .highlight .sx,  /* String.Other     */
 .highlight .s1 { /* String.Single    */
-  color: var(--gh-syn-string);
+  color: var(--md-syn-string);
 }
 
 /* Escape sequences (\n, \t) are constants inside a string. */
 .highlight .se {
-  color: var(--gh-syn-constant);
+  color: var(--md-syn-constant);
 }
 
 /* Interpolated expressions return to normal code colouring. */
 .highlight .si {
-  color: var(--gh-syn-fg-default);
+  color: var(--md-syn-fg-default);
 }
 
 .highlight .sr {
-  color: var(--gh-syn-string-regexp);
+  color: var(--md-syn-string-regexp);
 }
 
 /* Ruby-style symbols read as constants. */
 .highlight .ss {
-  color: var(--gh-syn-constant);
+  color: var(--md-syn-constant);
 }
 
 /* --------------------------------------------------------------------------
@@ -1093,54 +1082,54 @@
    -------------------------------------------------------------------------- */
 
 .highlight .gd {
-  color: var(--gh-syn-markup-deleted-text);
-  background-color: var(--gh-syn-markup-deleted-bg);
+  color: var(--md-syn-markup-deleted-text);
+  background-color: var(--md-syn-markup-deleted-bg);
 }
 
 .highlight .gi {
-  color: var(--gh-syn-markup-inserted-text);
-  background-color: var(--gh-syn-markup-inserted-bg);
+  color: var(--md-syn-markup-inserted-text);
+  background-color: var(--md-syn-markup-inserted-bg);
 }
 
 .highlight .gh {
-  color: var(--gh-syn-markup-heading);
+  color: var(--md-syn-markup-heading);
   font-weight: 600;
 }
 
 .highlight .gu {
-  color: var(--gh-syn-meta-diff-range);
+  color: var(--md-syn-meta-diff-range);
   font-weight: 600;
 }
 
 .highlight .ge {
-  color: var(--gh-syn-markup-italic);
+  color: var(--md-syn-markup-italic);
   font-style: italic;
 }
 
 .highlight .gs {
-  color: var(--gh-syn-markup-bold);
+  color: var(--md-syn-markup-bold);
   font-weight: 600;
 }
 
 .highlight .ges {
-  color: var(--gh-syn-markup-bold);
+  color: var(--md-syn-markup-bold);
   font-style: italic;
   font-weight: 600;
 }
 
 .highlight .gr,
 .highlight .gt {
-  color: var(--gh-syn-brackethighlighter-unmatched);
+  color: var(--md-syn-brackethighlighter-unmatched);
 }
 
 /* Shell prompts and REPL markers. */
 .highlight .gp {
-  color: var(--gh-syn-comment);
+  color: var(--md-syn-comment);
   font-weight: 600;
 }
 
 .highlight .go {
-  color: var(--gh-syn-comment);
+  color: var(--md-syn-comment);
 }
 
 /* --------------------------------------------------------------------------
@@ -1152,7 +1141,7 @@
    tokens red, so neither do we -- an unrecognised token stays plain rather
    than shouting at the reader. */
 .highlight .err {
-  color: var(--gh-syn-fg-default);
+  color: var(--md-syn-fg-default);
   background-color: transparent;
 }
 
@@ -1167,12 +1156,12 @@
 
 .highlight pre::selection,
 .highlight pre ::selection {
-  background-color: var(--gh-accent-muted, #54aeff66);
+  background-color: var(--md-accent-muted);
 }
 
 </style>
 <style>
-body { margin: 0; background-color: var(--gh-canvas-default); }
+body { margin: 0; background-color: var(--md-canvas-default); }
 .markdown-page { max-width: 1012px; margin: 0 auto; padding: 32px 24px 64px; }
 @media (max-width: 767px) { .markdown-page { padding: 16px 12px 48px; } }
 </style>

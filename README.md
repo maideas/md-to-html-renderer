@@ -29,15 +29,16 @@ renderer = GitHubMarkdown()                      # build once, reuse
 html = renderer.render(markdown_text)            # -> <article class="markdown-body">…
 ```
 
-Drop the fragment into your own template and link the two stylesheets:
+Drop the fragment into your own template and link the stylesheets:
 
 ```python
-GitHubMarkdown.write_assets("myapp/static/")     # copies both .css files
+renderer.write_assets("myapp/static/")           # structure + active palette
+print(renderer.css_hrefs())                      # ['palettes/github.css', 'markdown.css']
 ```
 
 ```html
-<link rel="stylesheet" href="/static/github-markdown.css">
-<link rel="stylesheet" href="/static/github-syntax.css">
+<link rel="stylesheet" href="/static/palettes/github.css">
+<link rel="stylesheet" href="/static/markdown.css">
 ```
 
 Or get a complete standalone page with the CSS embedded:
@@ -88,6 +89,8 @@ renderer = GitHubMarkdown(RenderOptions(
 | `heading_id_prefix` / `fragment_id_prefix` | `""` | Namespace heading and footnote ids |
 | `highlight` | `True` | Syntax-highlight fenced code |
 | `highlight_guess_language` | `False` | Guess the language of unlabelled fences |
+| `palette` | `"github"` | Bundled palette name, or a path to your own |
+| `emit_palette_attribute` | `False` | Force `data-palette` onto standalone pages |
 | `wrapper_tag` / `wrapper_class` | `"article"` / `"markdown-body"` | Output wrapper; `""` for a bare fragment |
 | `link_rel` | `"nofollow noopener noreferrer"` | `rel` on outbound links |
 | `absolute_links_only_rel` | `True` | Leave in-document anchors without `rel` |
@@ -120,17 +123,98 @@ instead of passing it through. It never silently trusts input.
 
 Set `sanitize=False` only for content you control.
 
-## Theming
+## Theming and palettes
 
-Colours come from CSS custom properties, so light and dark switch without
-re-rendering. Resolution order:
+Colour lives in **palettes**; structure lives in one colour-free stylesheet.
 
-1. `data-theme="light"` or `data-theme="dark"` on any ancestor
-2. the reader's `prefers-color-scheme`
-3. light
+```
+static/
+  markdown.css            ~950 lines of rules, zero colour values
+  palettes/github.json    the token values          <- edit this
+  palettes/github.css     compiled from the JSON    <- generated
+  palettes/claude.json    approximate Claude theme  (see caveat below)
+  palettes/skeleton.json  template for a new palette
+```
 
-Both stylesheets are plain CSS with no build step. Override any
-`--gh-*` variable to retheme.
+### Bundled palettes
+
+| Name | Notes |
+|---|---|
+| `github` | GitHub's Primer tokens, as used on github.com. |
+| `claude` | **Approximate reconstruction**, not extracted from the Claude app and not an official Anthropic theme. Built from the published brand palette (warm cream canvas, clay accent); remaining tokens derived for contrast and harmony. Replace with real values when you have them. |
+| `skeleton` | Template. Placeholders are magenta and cyan so an unfilled token is obvious. Marked `"template": true`, which exempts it from the contrast tests. |
+
+Every colour, font size and radius in `markdown.css` is a `--md-*` custom
+property. Adding a theme is therefore a **data edit, not a code change**.
+
+### Adding a palette
+
+```bash
+cp src/github_markdown/static/palettes/skeleton.json  .../palettes/mytheme.json
+# fill in the 53 colour tokens for light and dark, set "name": "mytheme"
+python tools/make_palette.py src/github_markdown/static/palettes/mytheme.json
+```
+
+To replace the approximate Claude palette with extracted values, edit
+`palettes/claude.json` and re-run the same command. No code changes.
+
+```python
+GitHubMarkdown(RenderOptions(palette="claude"))
+GitHubMarkdown(RenderOptions(palette="/path/to/mytheme.json"))  # outside the package
+```
+
+The skeleton's placeholder values are magenta and cyan on purpose: a token you
+have not filled in is impossible to miss. `tools/make_palette.py` refuses to
+compile a palette whose light and dark sections define different token sets,
+which is the failure mode that otherwise leaves one element keeping its
+light-mode colour on a dark background.
+
+### The two axes
+
+Palette *family* and light/dark *mode* are independent:
+
+| Markup | Result |
+|---|---|
+| `<html>` | default palette, follows the OS |
+| `<html data-theme="dark">` | default palette, pinned dark |
+| `<html data-palette="claude">` | Claude palette, follows the OS |
+| `<html data-palette="claude" data-theme="light">` | Claude palette, pinned light |
+| `<div data-palette="claude" data-theme="dark">` | that subtree only |
+
+Set both attributes on the same element. Switching either is one line of
+JavaScript and no re-render:
+
+```javascript
+document.documentElement.setAttribute('data-theme', 'dark');
+document.documentElement.setAttribute('data-palette', 'claude');
+document.documentElement.removeAttribute('data-theme');   // back to following the OS
+```
+
+A single palette claims `:root`, so `data-palette` is only needed when you load
+more than one. To ship several and switch at runtime:
+
+```python
+renderer.write_assets("static/", palettes=["github", "claude"])
+page = renderer.render_page(source, palettes=["github", "claude"])
+```
+
+`:root:not([data-palette])` is deliberately more specific than a bare
+`[data-palette="x"]`, so an explicit attribute always beats the implicit
+default however the stylesheets are ordered.
+
+### Token groups
+
+| Group | Count | Examples |
+|---|---|---|
+| Surfaces and text | 9 | `canvas-default`, `fg-muted`, `border-default` |
+| Semantic roles | 13 | `accent-fg`, `danger-emphasis`, `attention-muted` |
+| Diff backgrounds | 2 | `diff-add-bg`, `diff-del-bg` |
+| Syntax highlighting | 29 | `syn-keyword`, `syn-string`, `syn-comment` |
+| Typography and shape (`base`) | 14 | `font-body`, `radius`, `space-block` |
+
+The `base` group is mode-independent and only needs defining once, so a palette
+that changes typography or corner radius — not just colour — needs no extra
+machinery.
 
 ## Documented deviations from github.com
 
@@ -152,8 +236,8 @@ The palette and markup structure match, but for a given language the two
 tokenisers will occasionally disagree about what counts as a keyword. A few
 mappings are informed guesses — notably that operators (`=`, `+`) take the
 keyword colour and that Python's `self` takes the variable colour. If you want
-these tuned to a specific language, they are single-line changes in
-`static/github-syntax.css`.
+these tuned to a specific language, they are single-value changes in
+`static/palettes/github.json`.
 
 **Empty blockquotes.** markdown-it collapses `<blockquote></blockquote>`; the
 CommonMark reference keeps a newline. This renderer restores the newline so the
@@ -162,7 +246,7 @@ spec suite passes outright. No visual difference.
 ## Tests
 
 ```bash
-python -m pytest tests/ -q        # 897 tests
+python -m pytest tests/ -q        # 967 tests
 ```
 
 The suite is organised as:
@@ -175,10 +259,29 @@ The suite is organised as:
 | `test_sanitizer.py` | Script injection, event handlers, dangerous URL schemes — and that benign markup survives |
 | `test_edge_cases.py` | Degenerate input, limits, and feature *combinations* (table-in-list-in-blockquote, footnote-in-heading, emoji-in-code-span) |
 | `test_renderer_api.py` | Options validation, assets, page rendering, stylesheet coverage, CLI |
+| `test_palette.py` | Palette loading, validation, CSS generation, selector specificity, custom palettes end to end |
+| `test_contrast.py` | WCAG contrast floors for every non-template palette, in both modes |
 
-The stylesheet is tested too: `test_every_pygments_token_class_is_styled` fails
-if a Pygments upgrade introduces a token type the CSS does not cover, so no
-token can silently render unstyled.
+The stylesheets are tested too. `test_every_pygments_token_class_is_styled`
+fails if a Pygments upgrade introduces a token type the CSS does not cover;
+`test_structure_stylesheet_contains_no_colour_values` fails if a colour leaks
+back into the structural sheet; `test_compiled_css_is_current` fails if a
+palette JSON was edited without recompiling; and
+`test_all_palettes_define_the_same_token_set` fails if one palette is missing a
+token another defines. `test_contrast.py` computes WCAG 2.1 ratios and fails a
+palette whose body text drops below 4.5:1 or whose syntax colours drop below
+3.5:1 against the surface they sit on.
+
+## Examples
+
+Run `python examples/theme_switching.py` to regenerate these.
+
+| File | Shows |
+|---|---|
+| `theme-switching.html` | Live two-axis switcher: palette × mode, with no-flash preload |
+| `theme-side-by-side.html` | All four combinations on one page, via per-container attributes |
+| `palette-github.html` / `palette-claude.html` | The same document in each palette |
+| `kitchen-sink-github.html` / `kitchen-sink-claude.html` | Every supported construct, in each palette |
 
 ## Licence
 

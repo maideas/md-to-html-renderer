@@ -14,17 +14,18 @@ from . import icons
 from .emoji_shortcodes import replace_shortcodes
 from .highlight import highlight_code, normalise_language
 from .options import RenderOptions, Theme
+from .palette import STRUCTURE_CSS, PaletteError, palette_css_path
 from .sanitizer import HAVE_NH3, SanitizerUnavailableError, sanitize
 from .slugger import Slugger
 from .templates import render_document
 
 log = logging.getLogger(__name__)
 
-#: Directory holding the two stylesheets shipped with the package.
+#: Directory holding the stylesheets shipped with the package.
 STATIC_DIR = Path(__file__).parent / "static"
 
-#: Stylesheet filenames, in the order they must be linked.
-STYLESHEET_NAMES = ("github-markdown.css", "github-syntax.css")
+#: Structural stylesheet filename. Colours come from a palette alongside it.
+STRUCTURE_NAME = "markdown.css"
 
 #: Inline tokens whose ``content`` contributes to a heading's slug. Anything
 #: else (raw HTML, emphasis markers) contributes nothing, matching how GitHub
@@ -57,6 +58,12 @@ class GitHubMarkdown:
                 f"options must be a RenderOptions, got {type(options).__name__}"
             )
         self.options = options or RenderOptions()
+        # Fail at construction, not at the first render_page call, so a typo in
+        # the palette name surfaces at startup.
+        try:
+            palette_css_path(self.options.palette)
+        except PaletteError as exc:
+            raise ValueError(str(exc)) from exc
         self._sanitize_enabled = self._resolve_sanitizer()
         self._md = self._build_parser()
 
@@ -357,6 +364,7 @@ class GitHubMarkdown:
         theme: Theme = "auto",
         inline_css: bool = False,
         css_hrefs: Iterable[str] | None = None,
+        palettes: Iterable[str] | None = None,
         lang: str = "en",
         extra_head: str = "",
         env: dict[str, Any] | None = None,
@@ -375,14 +383,24 @@ class GitHubMarkdown:
             raise ValueError(f"theme must be 'auto', 'light' or 'dark', got {theme!r}")
 
         body = self.render(source, env=env)
+        # data-palette is only meaningful when more than one palette is present;
+        # a single palette already claims :root.
+        multiple = palettes is not None and len(list(palettes)) > 1
+        emit_palette = self.options.emit_palette_attribute or multiple
+
         return render_document(
             body=body,
             title=title,
             theme=theme,
+            palette=str(self.options.palette) if emit_palette else "",
             lang=lang,
             extra_head=extra_head,
-            styles=self.stylesheets() if inline_css else None,
-            css_hrefs=list(css_hrefs) if css_hrefs is not None else list(STYLESHEET_NAMES),
+            styles=self.stylesheets(palettes=palettes) if inline_css else None,
+            css_hrefs=(
+                list(css_hrefs)
+                if css_hrefs is not None
+                else self.css_hrefs(palettes=palettes)
+            ),
         )
 
     def table_of_contents(self, source: str, *, max_level: int = 3) -> list[dict[str, str]]:
@@ -406,31 +424,60 @@ class GitHubMarkdown:
     # ------------------------------------------------------------------
 
     @classmethod
-    def asset_paths(cls) -> list[Path]:
-        """Filesystem paths of the bundled stylesheets."""
-        return [STATIC_DIR / name for name in STYLESHEET_NAMES]
+    def structure_css(cls) -> Path:
+        """Path to the colour-free structural stylesheet."""
+        return STRUCTURE_CSS
 
-    @classmethod
-    def stylesheets(cls) -> str:
-        """The bundled CSS, concatenated, ready to inline in a ``<style>``."""
+    @staticmethod
+    def available_palettes() -> list[str]:
+        """Names of the bundled palettes."""
+        from .palette import available_palettes as _available
+
+        return sorted(_available())
+
+    def asset_paths(self, *, palettes: Iterable[str] | None = None) -> list[Path]:
+        """Stylesheets needed to display this renderer's output.
+
+        The palette comes first so the structural sheet can rely on its tokens
+        being defined, though CSS custom properties make the order cosmetic.
+
+        :param palettes: Ship these palettes instead of just the active one.
+            Load several to switch between them at runtime with
+            ``data-palette``.
+        """
+        names = list(palettes) if palettes is not None else [self.options.palette]
+        return [palette_css_path(name) for name in names] + [STRUCTURE_CSS]
+
+    def stylesheets(self, *, palettes: Iterable[str] | None = None) -> str:
+        """The CSS, concatenated, ready to inline in a ``<style>``."""
         return "\n".join(
-            path.read_text(encoding="utf-8") for path in cls.asset_paths()
+            path.read_text(encoding="utf-8")
+            for path in self.asset_paths(palettes=palettes)
         )
 
-    @classmethod
-    def write_assets(cls, directory: str | Path, *, overwrite: bool = True) -> list[Path]:
+    def write_assets(
+        self,
+        directory: str | Path,
+        *,
+        palettes: Iterable[str] | None = None,
+        overwrite: bool = True,
+    ) -> list[Path]:
         """Copy the stylesheets into ``directory`` (created if needed).
+
+        Palettes land in a ``palettes/`` subdirectory, mirroring the layout the
+        package uses, so relative links keep working.
 
         :param overwrite: When ``False``, existing files are left untouched
             rather than replaced -- useful if you have edited them.
         :returns: The destination paths, whether or not they were rewritten.
         """
         target = Path(directory)
-        target.mkdir(parents=True, exist_ok=True)
-
         written: list[Path] = []
-        for source_path in cls.asset_paths():
-            destination = target / source_path.name
+
+        for source_path in self.asset_paths(palettes=palettes):
+            in_palettes = source_path.parent.name == "palettes"
+            destination = target / ("palettes" if in_palettes else "") / source_path.name
+            destination.parent.mkdir(parents=True, exist_ok=True)
             written.append(destination)
             if destination.exists() and not overwrite:
                 log.info("Keeping existing %s", destination)
@@ -441,6 +488,13 @@ class GitHubMarkdown:
             temp.write_text(source_path.read_text(encoding="utf-8"), encoding="utf-8")
             temp.replace(destination)
         return written
+
+    def css_hrefs(self, *, palettes: Iterable[str] | None = None) -> list[str]:
+        """Relative hrefs matching what :meth:`write_assets` lays down."""
+        return [
+            f"palettes/{path.name}" if path.parent.name == "palettes" else path.name
+            for path in self.asset_paths(palettes=palettes)
+        ]
 
     # ------------------------------------------------------------------
     # Internals

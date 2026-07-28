@@ -1,116 +1,16 @@
 /* ==========================================================================
-   github-markdown.css
-   Document styling for rendered Markdown, matching GitHub's Primer tokens.
+   markdown.css -- structure only. Contains no colour values.
 
-   Palette resolution order:
-     1. [data-theme="light"|"dark"] on any ancestor  -> explicit override
-     2. prefers-color-scheme                         -> follows the OS
-     3. otherwise                                    -> light
+   Every colour, font and shape comes from a --md-* custom property supplied by
+   a palette file in palettes/. Load exactly one palette, or load several and
+   choose between them with the data-palette attribute:
 
-   Pair with github-syntax.css for code highlighting.
+     <link rel="stylesheet" href="palettes/github.css">
+     <link rel="stylesheet" href="markdown.css">
+
+   The only literal colours below are in the @media print block, which is
+   deliberately black on white whatever the palette says.
    ========================================================================== */
-
-:root,
-[data-theme="light"] {
-  color-scheme: light;
-
-  --gh-canvas-default: #ffffff;
-  --gh-canvas-subtle: #f6f8fa;
-  --gh-canvas-inset: #f6f8fa;
-
-  --gh-fg-default: #1f2328;
-  --gh-fg-muted: #59636e;
-  --gh-fg-subtle: #818b98;
-  --gh-fg-on-emphasis: #ffffff;
-
-  --gh-border-default: #d1d9e0;
-  --gh-border-muted: #d1d9e0b3;
-
-  --gh-neutral-muted: #818b981f;
-  --gh-accent-fg: #0969da;
-  --gh-accent-emphasis: #0969da;
-  --gh-accent-muted: #54aeff66;
-  --gh-success-fg: #1a7f37;
-  --gh-success-emphasis: #1f883d;
-  --gh-attention-fg: #9a6700;
-  --gh-attention-emphasis: #9a6700;
-  --gh-attention-muted: #fff8c5;
-  --gh-danger-fg: #d1242f;
-  --gh-danger-emphasis: #cf222e;
-  --gh-done-fg: #8250df;
-  --gh-done-emphasis: #8250df;
-
-  --gh-diff-add-bg: #dafbe1;
-  --gh-diff-del-bg: #ffebe9;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-
-    --gh-canvas-default: #0d1117;
-    --gh-canvas-subtle: #151b23;
-    --gh-canvas-inset: #010409;
-
-    --gh-fg-default: #f0f6fc;
-    --gh-fg-muted: #9198a1;
-    --gh-fg-subtle: #6e7681;
-    --gh-fg-on-emphasis: #ffffff;
-
-    --gh-border-default: #3d444d;
-    --gh-border-muted: #3d444db3;
-
-    --gh-neutral-muted: #656c7666;
-    --gh-accent-fg: #4493f8;
-    --gh-accent-emphasis: #1f6feb;
-    --gh-accent-muted: #388bfd66;
-    --gh-success-fg: #3fb950;
-    --gh-success-emphasis: #238636;
-    --gh-attention-fg: #d29922;
-    --gh-attention-emphasis: #9e6a03;
-    --gh-attention-muted: #bb800926;
-    --gh-danger-fg: #f85149;
-    --gh-danger-emphasis: #da3633;
-    --gh-done-fg: #ab7df8;
-    --gh-done-emphasis: #8957e5;
-
-    --gh-diff-add-bg: #033a16;
-    --gh-diff-del-bg: #67060c;
-  }
-}
-
-[data-theme="dark"] {
-  color-scheme: dark;
-
-  --gh-canvas-default: #0d1117;
-  --gh-canvas-subtle: #151b23;
-  --gh-canvas-inset: #010409;
-
-  --gh-fg-default: #f0f6fc;
-  --gh-fg-muted: #9198a1;
-  --gh-fg-subtle: #6e7681;
-  --gh-fg-on-emphasis: #ffffff;
-
-  --gh-border-default: #3d444d;
-  --gh-border-muted: #3d444db3;
-
-  --gh-neutral-muted: #656c7666;
-  --gh-accent-fg: #4493f8;
-  --gh-accent-emphasis: #1f6feb;
-  --gh-accent-muted: #388bfd66;
-  --gh-success-fg: #3fb950;
-  --gh-success-emphasis: #238636;
-  --gh-attention-fg: #d29922;
-  --gh-attention-emphasis: #9e6a03;
-  --gh-attention-muted: #bb800926;
-  --gh-danger-fg: #f85149;
-  --gh-danger-emphasis: #da3633;
-  --gh-done-fg: #ab7df8;
-  --gh-done-emphasis: #8957e5;
-
-  --gh-diff-add-bg: #033a16;
-  --gh-diff-del-bg: #67060c;
-}
 
 /* --------------------------------------------------------------------------
    Base
@@ -120,12 +20,11 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   margin: 0;
-  color: var(--gh-fg-default);
-  background-color: var(--gh-canvas-default);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 16px;
-  line-height: 1.5;
+  color: var(--md-fg-default);
+  background-color: var(--md-canvas-default);
+  font-family: var(--md-font-body);
+  font-size: var(--md-font-size);
+  line-height: var(--md-line-height);
   word-wrap: break-word;
   scroll-behavior: smooth;
 }
@@ -162,7 +61,7 @@
 
 .markdown-body a {
   background-color: transparent;
-  color: var(--gh-accent-fg);
+  color: var(--md-accent-fg);
   text-decoration: none;
 }
 
@@ -179,7 +78,7 @@
 .markdown-body button:focus,
 .markdown-body input:focus,
 .markdown-body [tabindex]:focus {
-  outline: 2px solid var(--gh-accent-fg);
+  outline: 2px solid var(--md-accent-fg);
   outline-offset: -2px;
 }
 
@@ -201,16 +100,16 @@
 .markdown-body pre,
 .markdown-body details {
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
 }
 
 .markdown-body hr {
   box-sizing: content-box;
   height: 0.25em;
   padding: 0;
-  margin: 24px 0;
+  margin: var(--md-space-heading-top) 0;
   overflow: hidden;
-  background-color: var(--gh-border-default);
+  background-color: var(--md-border-default);
   border: 0;
 }
 
@@ -235,8 +134,8 @@
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
+  margin-top: var(--md-space-heading-top);
+  margin-bottom: var(--md-space-block);
   font-weight: 600;
   line-height: 1.25;
 }
@@ -244,13 +143,13 @@
 .markdown-body h1 {
   padding-bottom: 0.3em;
   font-size: 2em;
-  border-bottom: 1px solid var(--gh-border-muted);
+  border-bottom: 1px solid var(--md-border-muted);
 }
 
 .markdown-body h2 {
   padding-bottom: 0.3em;
   font-size: 1.5em;
-  border-bottom: 1px solid var(--gh-border-muted);
+  border-bottom: 1px solid var(--md-border-muted);
 }
 
 .markdown-body h3 {
@@ -267,7 +166,7 @@
 
 .markdown-body h6 {
   font-size: 0.85em;
-  color: var(--gh-fg-muted);
+  color: var(--md-fg-muted);
 }
 
 /* Heading anchor: hidden until the heading is hovered or the link is focused. */
@@ -276,7 +175,7 @@
   padding-right: 4px;
   margin-left: -20px;
   line-height: 1;
-  color: var(--gh-fg-default);
+  color: var(--md-fg-default);
 }
 
 .markdown-body .anchor:focus {
@@ -337,8 +236,8 @@
 }
 
 .markdown-body mark {
-  background-color: var(--gh-attention-muted);
-  color: var(--gh-fg-default);
+  background-color: var(--md-attention-muted);
+  color: var(--md-fg-default);
 }
 
 .markdown-body del {
@@ -358,16 +257,15 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+  font: 11px var(--md-font-mono);
   line-height: 10px;
-  color: var(--gh-fg-default);
+  color: var(--md-fg-default);
   vertical-align: middle;
-  background-color: var(--gh-canvas-subtle);
-  border: solid 1px var(--gh-border-default);
-  border-bottom-color: var(--gh-border-default);
-  border-radius: 6px;
-  box-shadow: inset 0 -1px 0 var(--gh-border-default);
+  background-color: var(--md-canvas-subtle);
+  border: solid 1px var(--md-border-default);
+  border-bottom-color: var(--md-border-default);
+  border-radius: var(--md-radius);
+  box-shadow: inset 0 -1px 0 var(--md-border-default);
 }
 
 /* --------------------------------------------------------------------------
@@ -418,7 +316,7 @@
 }
 
 .markdown-body li > p {
-  margin-top: 16px;
+  margin-top: var(--md-space-block);
 }
 
 .markdown-body li + li {
@@ -431,7 +329,7 @@
 
 .markdown-body dl dt {
   padding: 0;
-  margin-top: 16px;
+  margin-top: var(--md-space-block);
   font-size: 1em;
   font-style: italic;
   font-weight: 600;
@@ -439,7 +337,7 @@
 
 .markdown-body dl dd {
   padding: 0 16px;
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
 }
 
 /* Task lists */
@@ -485,8 +383,8 @@
 
 .markdown-body blockquote {
   padding: 0 1em;
-  color: var(--gh-fg-muted);
-  border-left: 0.25em solid var(--gh-border-default);
+  color: var(--md-fg-muted);
+  border-left: var(--md-border-accent-width) solid var(--md-border-default);
 }
 
 .markdown-body blockquote > :first-child {
@@ -503,9 +401,9 @@
 
 .markdown-body .markdown-alert {
   padding: 0.5rem 1rem;
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
   color: inherit;
-  border-left: 0.25em solid var(--gh-border-default);
+  border-left: var(--md-border-accent-width) solid var(--md-border-default);
 }
 
 .markdown-body .markdown-alert > :first-child {
@@ -531,43 +429,43 @@
 }
 
 .markdown-body .markdown-alert-note {
-  border-left-color: var(--gh-accent-emphasis);
+  border-left-color: var(--md-accent-emphasis);
 }
 
 .markdown-body .markdown-alert-note .markdown-alert-title {
-  color: var(--gh-accent-fg);
+  color: var(--md-accent-fg);
 }
 
 .markdown-body .markdown-alert-tip {
-  border-left-color: var(--gh-success-emphasis);
+  border-left-color: var(--md-success-emphasis);
 }
 
 .markdown-body .markdown-alert-tip .markdown-alert-title {
-  color: var(--gh-success-fg);
+  color: var(--md-success-fg);
 }
 
 .markdown-body .markdown-alert-important {
-  border-left-color: var(--gh-done-emphasis);
+  border-left-color: var(--md-done-emphasis);
 }
 
 .markdown-body .markdown-alert-important .markdown-alert-title {
-  color: var(--gh-done-fg);
+  color: var(--md-done-fg);
 }
 
 .markdown-body .markdown-alert-warning {
-  border-left-color: var(--gh-attention-emphasis);
+  border-left-color: var(--md-attention-emphasis);
 }
 
 .markdown-body .markdown-alert-warning .markdown-alert-title {
-  color: var(--gh-attention-fg);
+  color: var(--md-attention-fg);
 }
 
 .markdown-body .markdown-alert-caution {
-  border-left-color: var(--gh-danger-emphasis);
+  border-left-color: var(--md-danger-emphasis);
 }
 
 .markdown-body .markdown-alert-caution .markdown-alert-title {
-  color: var(--gh-danger-fg);
+  color: var(--md-danger-fg);
 }
 
 /* --------------------------------------------------------------------------
@@ -578,19 +476,18 @@
 .markdown-body tt,
 .markdown-body samp,
 .markdown-body pre {
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
-  font-size: 12px;
+  font-family: var(--md-font-mono);
+  font-size: var(--md-font-size-small);
 }
 
 .markdown-body code,
 .markdown-body tt {
   padding: 0.2em 0.4em;
   margin: 0;
-  font-size: 85%;
+  font-size: var(--md-font-size-code);
   white-space: break-spaces;
-  background-color: var(--gh-neutral-muted);
-  border-radius: 6px;
+  background-color: var(--md-neutral-muted);
+  border-radius: var(--md-radius);
 }
 
 .markdown-body code br,
@@ -603,17 +500,17 @@
 }
 
 .markdown-body samp {
-  font-size: 85%;
+  font-size: var(--md-font-size-code);
 }
 
 .markdown-body pre {
   padding: 16px;
   overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  color: var(--gh-fg-default);
-  background-color: var(--gh-canvas-subtle);
-  border-radius: 6px;
+  font-size: var(--md-font-size-code);
+  line-height: var(--md-line-height-code);
+  color: var(--md-fg-default);
+  background-color: var(--md-canvas-subtle);
+  border-radius: var(--md-radius);
   word-wrap: normal;
 }
 
@@ -644,7 +541,7 @@
 /* The <div class="highlight"> wrapper must not add spacing of its own; the
    <pre> inside already carries the block margin. */
 .markdown-body .highlight {
-  margin-bottom: 16px;
+  margin-bottom: var(--md-space-block);
 }
 
 .markdown-body .highlight pre {
@@ -654,7 +551,7 @@
 
 .markdown-body .highlight pre,
 .markdown-body pre {
-  background-color: var(--gh-canvas-subtle);
+  background-color: var(--md-canvas-subtle);
 }
 
 /* --------------------------------------------------------------------------
@@ -677,7 +574,7 @@
 .markdown-body table th,
 .markdown-body table td {
   padding: 6px 13px;
-  border: 1px solid var(--gh-border-default);
+  border: 1px solid var(--md-border-default);
 }
 
 .markdown-body table td > :last-child {
@@ -685,12 +582,12 @@
 }
 
 .markdown-body table tr {
-  background-color: var(--gh-canvas-default);
-  border-top: 1px solid var(--gh-border-muted);
+  background-color: var(--md-canvas-default);
+  border-top: 1px solid var(--md-border-muted);
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: var(--gh-canvas-subtle);
+  background-color: var(--md-canvas-subtle);
 }
 
 .markdown-body table img {
@@ -704,7 +601,7 @@
 .markdown-body img {
   max-width: 100%;
   box-sizing: content-box;
-  background-color: var(--gh-canvas-default);
+  background-color: var(--md-canvas-default);
   border-style: none;
 }
 
@@ -739,9 +636,9 @@
    -------------------------------------------------------------------------- */
 
 .markdown-body .footnotes {
-  font-size: 12px;
-  color: var(--gh-fg-muted);
-  border-top: 1px solid var(--gh-border-default);
+  font-size: var(--md-font-size-small);
+  color: var(--md-fg-muted);
+  border-top: 1px solid var(--md-border-default);
   margin-top: 24px;
 }
 
@@ -752,7 +649,7 @@
 .markdown-body .footnotes ol ul {
   display: inline-block;
   padding-left: 16px;
-  margin-top: 16px;
+  margin-top: var(--md-space-block);
 }
 
 .markdown-body .footnotes li {
@@ -767,12 +664,12 @@
   left: -24px;
   pointer-events: none;
   content: "";
-  border: 2px solid var(--gh-accent-emphasis);
-  border-radius: 6px;
+  border: 2px solid var(--md-accent-emphasis);
+  border-radius: var(--md-radius);
 }
 
 .markdown-body .footnotes li:target {
-  color: var(--gh-fg-default);
+  color: var(--md-fg-default);
 }
 
 .markdown-body .footnotes .data-footnote-backref g-emoji,
@@ -827,4 +724,227 @@
   .markdown-body {
     scroll-behavior: auto;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Comments
+   -------------------------------------------------------------------------- */
+
+.highlight .c,   /* Comment              */
+.highlight .ch,  /* Comment.Hashbang     */
+.highlight .cm,  /* Comment.Multiline    */
+.highlight .c1,  /* Comment.Single       */
+.highlight .cs { /* Comment.Special      */
+  color: var(--md-syn-comment);
+  font-style: normal;
+}
+
+/* Preprocessor directives read as keywords on GitHub (#include, #define). */
+.highlight .cp {
+  color: var(--md-syn-keyword);
+}
+
+/* ...but the file they name is a string (<stdio.h>). */
+.highlight .cpf {
+  color: var(--md-syn-string);
+}
+
+/* --------------------------------------------------------------------------
+   Keywords and operators
+   -------------------------------------------------------------------------- */
+
+.highlight .k,   /* Keyword             */
+.highlight .kd,  /* Keyword.Declaration */
+.highlight .kn,  /* Keyword.Namespace   */
+.highlight .kp,  /* Keyword.Pseudo      */
+.highlight .kr,  /* Keyword.Reserved    */
+.highlight .kt,  /* Keyword.Type        */
+.highlight .o,   /* Operator            */
+.highlight .ow { /* Operator.Word       */
+  color: var(--md-syn-keyword);
+}
+
+/* true / false / nil / None are language constants, not keywords. */
+.highlight .kc {
+  color: var(--md-syn-constant);
+}
+
+/* --------------------------------------------------------------------------
+   Names
+   -------------------------------------------------------------------------- */
+
+.highlight .n,   /* Name          */
+.highlight .nx,  /* Name.Other    */
+.highlight .py,  /* Name.Property */
+.highlight .p,   /* Punctuation   */
+.highlight .pm,  /* Punctuation.Marker */
+.highlight .l,   /* Literal       */
+.highlight .ld,  /* Literal.Date  */
+.highlight .x,   /* Other         */
+.highlight .esc, /* Escape        */
+.highlight .g {  /* Generic       */
+  color: var(--md-syn-fg-default);
+}
+
+.highlight .nc,  /* Name.Class     */
+.highlight .nd,  /* Name.Decorator */
+.highlight .nf,  /* Name.Function  */
+.highlight .fm { /* Name.Function.Magic */
+  color: var(--md-syn-entity);
+}
+
+.highlight .na,  /* Name.Attribute */
+.highlight .nb,  /* Name.Builtin   */
+.highlight .ne,  /* Name.Exception */
+.highlight .ni,  /* Name.Entity    */
+.highlight .nl,  /* Name.Label     */
+.highlight .no { /* Name.Constant  */
+  color: var(--md-syn-constant);
+}
+
+/* HTML/XML element names. */
+.highlight .nt {
+  color: var(--md-syn-entity-tag);
+}
+
+/* import / package paths keep the default foreground on GitHub. */
+.highlight .nn {
+  color: var(--md-syn-storage-modifier-import);
+}
+
+.highlight .nv,  /* Name.Variable          */
+.highlight .vc,  /* Name.Variable.Class    */
+.highlight .vg,  /* Name.Variable.Global   */
+.highlight .vi,  /* Name.Variable.Instance */
+.highlight .vm,  /* Name.Variable.Magic    */
+.highlight .bp { /* Name.Builtin.Pseudo (self, this) */
+  color: var(--md-syn-variable);
+}
+
+/* --------------------------------------------------------------------------
+   Literals
+   -------------------------------------------------------------------------- */
+
+.highlight .m,   /* Number            */
+.highlight .mb,  /* Number.Bin        */
+.highlight .mf,  /* Number.Float      */
+.highlight .mh,  /* Number.Hex        */
+.highlight .mi,  /* Number.Integer    */
+.highlight .mo,  /* Number.Oct        */
+.highlight .il { /* Number.Integer.Long */
+  color: var(--md-syn-constant);
+}
+
+.highlight .s,   /* String           */
+.highlight .sa,  /* String.Affix     */
+.highlight .sb,  /* String.Backtick  */
+.highlight .sc,  /* String.Char      */
+.highlight .dl,  /* String.Delimiter */
+.highlight .sd,  /* String.Doc       */
+.highlight .s2,  /* String.Double    */
+.highlight .sh,  /* String.Heredoc   */
+.highlight .sx,  /* String.Other     */
+.highlight .s1 { /* String.Single    */
+  color: var(--md-syn-string);
+}
+
+/* Escape sequences (\n, \t) are constants inside a string. */
+.highlight .se {
+  color: var(--md-syn-constant);
+}
+
+/* Interpolated expressions return to normal code colouring. */
+.highlight .si {
+  color: var(--md-syn-fg-default);
+}
+
+.highlight .sr {
+  color: var(--md-syn-string-regexp);
+}
+
+/* Ruby-style symbols read as constants. */
+.highlight .ss {
+  color: var(--md-syn-constant);
+}
+
+/* --------------------------------------------------------------------------
+   Generic tokens: diffs, consoles, tracebacks
+   -------------------------------------------------------------------------- */
+
+.highlight .gd {
+  color: var(--md-syn-markup-deleted-text);
+  background-color: var(--md-syn-markup-deleted-bg);
+}
+
+.highlight .gi {
+  color: var(--md-syn-markup-inserted-text);
+  background-color: var(--md-syn-markup-inserted-bg);
+}
+
+.highlight .gh {
+  color: var(--md-syn-markup-heading);
+  font-weight: 600;
+}
+
+.highlight .gu {
+  color: var(--md-syn-meta-diff-range);
+  font-weight: 600;
+}
+
+.highlight .ge {
+  color: var(--md-syn-markup-italic);
+  font-style: italic;
+}
+
+.highlight .gs {
+  color: var(--md-syn-markup-bold);
+  font-weight: 600;
+}
+
+.highlight .ges {
+  color: var(--md-syn-markup-bold);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.highlight .gr,
+.highlight .gt {
+  color: var(--md-syn-brackethighlighter-unmatched);
+}
+
+/* Shell prompts and REPL markers. */
+.highlight .gp {
+  color: var(--md-syn-comment);
+  font-weight: 600;
+}
+
+.highlight .go {
+  color: var(--md-syn-comment);
+}
+
+/* --------------------------------------------------------------------------
+   Error and whitespace
+   -------------------------------------------------------------------------- */
+
+/* Pygments emits .err for anything its lexer could not classify, which happens
+   often on perfectly valid code using newer syntax. GitHub never paints such
+   tokens red, so neither do we -- an unrecognised token stays plain rather
+   than shouting at the reader. */
+.highlight .err {
+  color: var(--md-syn-fg-default);
+  background-color: transparent;
+}
+
+.highlight .w {
+  color: inherit;
+  background-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Selection
+   -------------------------------------------------------------------------- */
+
+.highlight pre::selection,
+.highlight pre ::selection {
+  background-color: var(--md-accent-muted);
 }

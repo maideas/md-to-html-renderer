@@ -1,0 +1,201 @@
+/* GitHub palette -- GitHub's Primer design tokens, as used on github.com.
+   Generated from github.json by tools/make_palette.py -- edit the JSON, not this file.
+
+   Pair with markdown.css, which holds every rule and no colours.
+
+     <html>                                   this palette, following the OS
+     <html data-theme="dark">                 this palette, pinned dark
+     <html data-palette="github">                explicit, when several are loaded
+     <div  data-palette="github" data-theme="light">   one subtree only
+
+   Set data-palette and data-theme on the same element. */
+
+:root:not([data-palette]),
+[data-palette="github"] {
+  color-scheme: light;
+  --md-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --md-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --md-font-size: 16px;
+  --md-font-size-code: 85%;
+  --md-font-size-small: 12px;
+  --md-line-height: 1.5;
+  --md-line-height-code: 1.45;
+  --md-radius: 6px;
+  --md-radius-large: 6px;
+  --md-border-accent-width: 0.25em;
+  --md-space-block: 16px;
+  --md-space-heading-top: 24px;
+  --md-page-max-width: 1012px;
+  --md-page-padding: 32px 24px 64px;
+  --md-accent-emphasis: #0969da;
+  --md-accent-fg: #0969da;
+  --md-accent-muted: #54aeff66;
+  --md-attention-emphasis: #9a6700;
+  --md-attention-fg: #9a6700;
+  --md-attention-muted: #fff8c5;
+  --md-border-default: #d1d9e0;
+  --md-border-muted: #d1d9e0b3;
+  --md-canvas-default: #ffffff;
+  --md-canvas-inset: #f6f8fa;
+  --md-canvas-subtle: #f6f8fa;
+  --md-danger-emphasis: #cf222e;
+  --md-danger-fg: #d1242f;
+  --md-diff-add-bg: #dafbe1;
+  --md-diff-del-bg: #ffebe9;
+  --md-done-emphasis: #8250df;
+  --md-done-fg: #8250df;
+  --md-fg-default: #1f2328;
+  --md-fg-muted: #59636e;
+  --md-fg-on-emphasis: #ffffff;
+  --md-fg-subtle: #818b98;
+  --md-neutral-muted: #818b981f;
+  --md-success-emphasis: #1f883d;
+  --md-success-fg: #1a7f37;
+  --md-syn-brackethighlighter-unmatched: #82071e;
+  --md-syn-carriage-return-bg: #cf222e;
+  --md-syn-carriage-return-text: #f6f8fa;
+  --md-syn-comment: #59636e;
+  --md-syn-constant: #0550ae;
+  --md-syn-entity: #6639ba;
+  --md-syn-entity-tag: #0550ae;
+  --md-syn-fg-default: #1f2328;
+  --md-syn-invalid-illegal-bg: #82071e;
+  --md-syn-invalid-illegal-text: #f6f8fa;
+  --md-syn-keyword: #cf222e;
+  --md-syn-markup-bold: #1f2328;
+  --md-syn-markup-changed-bg: #ffd8b5;
+  --md-syn-markup-changed-text: #953800;
+  --md-syn-markup-deleted-bg: #ffebe9;
+  --md-syn-markup-deleted-text: #82071e;
+  --md-syn-markup-heading: #0550ae;
+  --md-syn-markup-ignored-bg: #0550ae;
+  --md-syn-markup-ignored-text: #d1d9e0;
+  --md-syn-markup-inserted-bg: #dafbe1;
+  --md-syn-markup-inserted-text: #116329;
+  --md-syn-markup-italic: #1f2328;
+  --md-syn-markup-list: #3b2300;
+  --md-syn-meta-diff-range: #8250df;
+  --md-syn-storage-modifier-import: #1f2328;
+  --md-syn-string: #0a3069;
+  --md-syn-string-regexp: #116329;
+  --md-syn-sublimelinter-gutter-mark: #818b98;
+  --md-syn-variable: #953800;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-palette]):not([data-theme="light"]),
+  [data-palette="github"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --md-accent-emphasis: #1f6feb;
+    --md-accent-fg: #4493f8;
+    --md-accent-muted: #388bfd66;
+    --md-attention-emphasis: #9e6a03;
+    --md-attention-fg: #d29922;
+    --md-attention-muted: #bb800926;
+    --md-border-default: #3d444d;
+    --md-border-muted: #3d444db3;
+    --md-canvas-default: #0d1117;
+    --md-canvas-inset: #010409;
+    --md-canvas-subtle: #151b23;
+    --md-danger-emphasis: #da3633;
+    --md-danger-fg: #f85149;
+    --md-diff-add-bg: #033a16;
+    --md-diff-del-bg: #67060c;
+    --md-done-emphasis: #8957e5;
+    --md-done-fg: #ab7df8;
+    --md-fg-default: #f0f6fc;
+    --md-fg-muted: #9198a1;
+    --md-fg-on-emphasis: #ffffff;
+    --md-fg-subtle: #6e7681;
+    --md-neutral-muted: #656c7666;
+    --md-success-emphasis: #238636;
+    --md-success-fg: #3fb950;
+    --md-syn-brackethighlighter-unmatched: #f85149;
+    --md-syn-carriage-return-bg: #b62324;
+    --md-syn-carriage-return-text: #f0f6fc;
+    --md-syn-comment: #9198a1;
+    --md-syn-constant: #79c0ff;
+    --md-syn-entity: #d2a8ff;
+    --md-syn-entity-tag: #7ee787;
+    --md-syn-fg-default: #f0f6fc;
+    --md-syn-invalid-illegal-bg: #8e1519;
+    --md-syn-invalid-illegal-text: #f0f6fc;
+    --md-syn-keyword: #ff7b72;
+    --md-syn-markup-bold: #f0f6fc;
+    --md-syn-markup-changed-bg: #5a1e02;
+    --md-syn-markup-changed-text: #ffdfb6;
+    --md-syn-markup-deleted-bg: #67060c;
+    --md-syn-markup-deleted-text: #ffdcd7;
+    --md-syn-markup-heading: #1f6feb;
+    --md-syn-markup-ignored-bg: #1158c7;
+    --md-syn-markup-ignored-text: #f0f6fc;
+    --md-syn-markup-inserted-bg: #033a16;
+    --md-syn-markup-inserted-text: #aff5b4;
+    --md-syn-markup-italic: #f0f6fc;
+    --md-syn-markup-list: #f2cc60;
+    --md-syn-meta-diff-range: #d2a8ff;
+    --md-syn-storage-modifier-import: #f0f6fc;
+    --md-syn-string: #a5d6ff;
+    --md-syn-string-regexp: #7ee787;
+    --md-syn-sublimelinter-gutter-mark: #3d444d;
+    --md-syn-variable: #ffa657;
+  }
+}
+
+:root:not([data-palette])[data-theme="dark"],
+[data-palette="github"][data-theme="dark"] {
+  color-scheme: dark;
+  --md-accent-emphasis: #1f6feb;
+  --md-accent-fg: #4493f8;
+  --md-accent-muted: #388bfd66;
+  --md-attention-emphasis: #9e6a03;
+  --md-attention-fg: #d29922;
+  --md-attention-muted: #bb800926;
+  --md-border-default: #3d444d;
+  --md-border-muted: #3d444db3;
+  --md-canvas-default: #0d1117;
+  --md-canvas-inset: #010409;
+  --md-canvas-subtle: #151b23;
+  --md-danger-emphasis: #da3633;
+  --md-danger-fg: #f85149;
+  --md-diff-add-bg: #033a16;
+  --md-diff-del-bg: #67060c;
+  --md-done-emphasis: #8957e5;
+  --md-done-fg: #ab7df8;
+  --md-fg-default: #f0f6fc;
+  --md-fg-muted: #9198a1;
+  --md-fg-on-emphasis: #ffffff;
+  --md-fg-subtle: #6e7681;
+  --md-neutral-muted: #656c7666;
+  --md-success-emphasis: #238636;
+  --md-success-fg: #3fb950;
+  --md-syn-brackethighlighter-unmatched: #f85149;
+  --md-syn-carriage-return-bg: #b62324;
+  --md-syn-carriage-return-text: #f0f6fc;
+  --md-syn-comment: #9198a1;
+  --md-syn-constant: #79c0ff;
+  --md-syn-entity: #d2a8ff;
+  --md-syn-entity-tag: #7ee787;
+  --md-syn-fg-default: #f0f6fc;
+  --md-syn-invalid-illegal-bg: #8e1519;
+  --md-syn-invalid-illegal-text: #f0f6fc;
+  --md-syn-keyword: #ff7b72;
+  --md-syn-markup-bold: #f0f6fc;
+  --md-syn-markup-changed-bg: #5a1e02;
+  --md-syn-markup-changed-text: #ffdfb6;
+  --md-syn-markup-deleted-bg: #67060c;
+  --md-syn-markup-deleted-text: #ffdcd7;
+  --md-syn-markup-heading: #1f6feb;
+  --md-syn-markup-ignored-bg: #1158c7;
+  --md-syn-markup-ignored-text: #f0f6fc;
+  --md-syn-markup-inserted-bg: #033a16;
+  --md-syn-markup-inserted-text: #aff5b4;
+  --md-syn-markup-italic: #f0f6fc;
+  --md-syn-markup-list: #f2cc60;
+  --md-syn-meta-diff-range: #d2a8ff;
+  --md-syn-storage-modifier-import: #f0f6fc;
+  --md-syn-string: #a5d6ff;
+  --md-syn-string-regexp: #7ee787;
+  --md-syn-sublimelinter-gutter-mark: #3d444d;
+  --md-syn-variable: #ffa657;
+}

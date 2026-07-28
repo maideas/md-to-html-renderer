@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
+from pathlib import Path
 from typing import Literal
 
 #: Where the ``id`` used by heading anchors is placed.
@@ -82,6 +83,14 @@ class RenderOptions:
     """Drop a leading YAML ``---`` block instead of rendering it."""
 
     # --- Output ------------------------------------------------------------
+    palette: str = "github"
+    """Colour palette: a bundled name (``"github"``) or a path to your own
+    palette JSON. See ``static/palettes/skeleton.json`` for a template."""
+
+    emit_palette_attribute: bool = False
+    """Add ``data-palette`` to standalone pages. Only needed when more than one
+    palette stylesheet is loaded at once; a lone palette claims ``:root``."""
+
     anchor_style: AnchorStyle = "heading"
     heading_id_prefix: str = ""
     """Prefix for generated heading ids. GitHub uses ``"user-content-"`` to
@@ -154,6 +163,10 @@ class RenderOptions:
             value = getattr(self, name)
             if not isinstance(value, str):
                 raise TypeError(f"{name} must be a string")
+        if not isinstance(self.palette, (str, Path)):
+            raise TypeError(
+                f"palette must be a name or path, got {type(self.palette).__name__}"
+            )
         if not isinstance(self.extra_allowed_tags, (frozenset, set)):
             raise TypeError("extra_allowed_tags must be a set of tag names")
         object.__setattr__(self, "extra_allowed_tags", frozenset(self.extra_allowed_tags))
@@ -165,6 +178,10 @@ class RenderOptions:
 
 #: Matches how GitHub renders issue/PR comments rather than repository files.
 COMMENT_PRESET = RenderOptions(breaks=True, heading_id_prefix="user-content-")
+
+#: Renders with the skeleton palette, which is deliberately garish so that any
+#: token you have not filled in is impossible to miss.
+SKELETON_PRESET = RenderOptions(palette="skeleton")
 
 #: Trusted-input preset: raw HTML passes through untouched. Only use this on
 #: Markdown you control.
