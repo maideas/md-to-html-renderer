@@ -34,6 +34,7 @@
   --gh-success-emphasis: #1f883d;
   --gh-attention-fg: #9a6700;
   --gh-attention-emphasis: #9a6700;
+  --gh-attention-muted: #fff8c5;
   --gh-danger-fg: #d1242f;
   --gh-danger-emphasis: #cf222e;
   --gh-done-fg: #8250df;
@@ -67,6 +68,7 @@
     --gh-success-emphasis: #238636;
     --gh-attention-fg: #d29922;
     --gh-attention-emphasis: #9e6a03;
+    --gh-attention-muted: #bb800926;
     --gh-danger-fg: #f85149;
     --gh-danger-emphasis: #da3633;
     --gh-done-fg: #ab7df8;
@@ -100,6 +102,7 @@
   --gh-success-emphasis: #238636;
   --gh-attention-fg: #d29922;
   --gh-attention-emphasis: #9e6a03;
+  --gh-attention-muted: #bb800926;
   --gh-danger-fg: #f85149;
   --gh-danger-emphasis: #da3633;
   --gh-done-fg: #ab7df8;
@@ -334,7 +337,7 @@
 }
 
 .markdown-body mark {
-  background-color: var(--gh-attention-muted, #fff8c5);
+  background-color: var(--gh-attention-muted);
   color: var(--gh-fg-default);
 }
 

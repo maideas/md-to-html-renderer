@@ -14,8 +14,20 @@ _PAGE = """<!DOCTYPE html>
 <title>{title}</title>
 {head}</head>
 <body>
-{body}</body>
+<div class="markdown-page">
+{body}</div>
+</body>
 </html>
+"""
+
+#: Minimal page shell for standalone documents: a themed canvas and a centred
+#: column at GitHub's own README width. Only ``render_page`` uses this --
+#: ``render`` returns a bare fragment and imposes no layout, so embedding it in
+#: an existing site never fights that site's CSS.
+PAGE_SHELL_CSS = """\
+body { margin: 0; background-color: var(--gh-canvas-default); }
+.markdown-page { max-width: 1012px; margin: 0 auto; padding: 32px 24px 64px; }
+@media (max-width: 767px) { .markdown-page { padding: 16px 12px 48px; } }
 """
 
 #: Values for the ``color-scheme`` meta tag, which tells the browser how to
@@ -47,6 +59,7 @@ def render_document(
             head_parts.append(
                 f'<link rel="stylesheet" href="{escape(href, quote=True)}">\n'
             )
+    head_parts.append(f"<style>\n{PAGE_SHELL_CSS}</style>\n")
     if extra_head:
         head_parts.append(extra_head.rstrip("\n") + "\n")
 
