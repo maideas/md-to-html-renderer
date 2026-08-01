@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from github_markdown import GitHubMarkdown, RenderOptions, Slugger, slugify
+from md_to_html_renderer import MarkdownRenderer, RenderOptions, Slugger, slugify
 
 
 class TestSlugify:
@@ -125,56 +125,56 @@ class TestHeadingIdsInRenderedOutput:
     """The slugger is only useful if the renderer wires it up correctly."""
 
     def test_id_and_anchor_href_agree(self):
-        html = GitHubMarkdown().render("## Getting Started")
+        html = MarkdownRenderer().render("## Getting Started")
         assert 'id="getting-started"' in html
         assert 'href="#getting-started"' in html
 
     def test_slug_uses_rendered_text_not_markdown_source(self):
         """``## **Bold** and `code`` must slugify the visible words, not the
         asterisks and backticks around them."""
-        html = GitHubMarkdown().render("## **Bold** and `code`")
+        html = MarkdownRenderer().render("## **Bold** and `code`")
         assert 'id="bold-and-code"' in html
 
     def test_link_in_heading_slugifies_to_the_link_text(self):
-        html = GitHubMarkdown().render("## See [the docs](https://example.com)")
+        html = MarkdownRenderer().render("## See [the docs](https://example.com)")
         assert 'id="see-the-docs"' in html
         assert "example" not in html.split("</h2>")[0].split("<a class")[0]
 
     def test_image_in_heading_uses_alt_text(self):
-        html = GitHubMarkdown().render("## ![Build status](badge.svg) Status")
+        html = MarkdownRenderer().render("## ![Build status](badge.svg) Status")
         assert 'id="build-status-status"' in html
 
     def test_inline_html_in_heading_contributes_nothing(self):
-        html = GitHubMarkdown().render("## Hello <em>there</em>")
+        html = MarkdownRenderer().render("## Hello <em>there</em>")
         assert 'id="hello-there"' in html
 
     def test_duplicate_headings_across_a_document(self):
-        html = GitHubMarkdown().render("## Notes\n\n## Notes\n\n## Notes\n")
+        html = MarkdownRenderer().render("## Notes\n\n## Notes\n\n## Notes\n")
         for expected in ('id="notes"', 'id="notes-1"', 'id="notes-2"'):
             assert expected in html
 
     def test_slug_state_does_not_leak_between_renders(self):
         """A shared renderer must not remember headings from a previous call --
         this is what makes the instance safe to reuse."""
-        renderer = GitHubMarkdown()
+        renderer = MarkdownRenderer()
         first = renderer.render("## Notes")
         second = renderer.render("## Notes")
         assert first == second
         assert 'id="notes-1"' not in second
 
     def test_heading_id_prefix_option(self):
-        renderer = GitHubMarkdown(RenderOptions(heading_id_prefix="user-content-"))
+        renderer = MarkdownRenderer(RenderOptions(heading_id_prefix="user-content-"))
         html = renderer.render("## Setup")
         assert 'id="user-content-setup"' in html
         assert 'href="#user-content-setup"' in html
 
     def test_anchor_style_none_emits_no_id_or_anchor(self):
-        html = GitHubMarkdown(RenderOptions(anchor_style="none")).render("## Setup")
+        html = MarkdownRenderer(RenderOptions(anchor_style="none")).render("## Setup")
         assert html.count("<h2>") == 1
         assert "anchor" not in html
 
     def test_anchor_style_github_puts_the_id_on_the_anchor(self):
-        renderer = GitHubMarkdown(
+        renderer = MarkdownRenderer(
             RenderOptions(anchor_style="github", heading_id_prefix="user-content-")
         )
         html = renderer.render("## Setup")

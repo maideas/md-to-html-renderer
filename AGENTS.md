@@ -1,15 +1,16 @@
 # AGENTS.md — Python Markdown to HTML Renderer
 
-`github-markdown`: renders GitHub-Flavoured Markdown to HTML that looks
-exactly like GitHub (including syntax highlighting). Pure Python 3.9+,
-`src/` layout, setuptools build backend, no Makefile.
+`md-to-html-renderer`: renders GitHub-Flavoured Markdown to sanitised HTML
+with syntax highlighting. The visual style is palette-driven — the bundled
+`github` palette matches GitHub exactly, further palettes can be added as
+data. Pure Python 3.9+, `src/` layout, setuptools build backend, no Makefile.
 
 ## Build / test / run
 
 ```bash
 pip install -e ".[all]"          # dev install (all optional extras)
 python -m pytest tests/ -q       # ~967 tests; CommonMark spec vendored in tests/data/
-python -m github_markdown README.md -o out.html   # CLI
+python -m md_to_html_renderer README.md -o out.html   # CLI
 python -m build                  # wheel lands in dist/ (gitignored)
 ```
 
@@ -27,8 +28,8 @@ the existing wheel in `dist/` is also gitignored and not committed.
 ## Project layout
 
 ```
-src/github_markdown/
-├── renderer.py          # GitHubMarkdown class — main public API (render, render_page, table_of_contents, write_assets)
+src/md_to_html_renderer/
+├── renderer.py          # MarkdownRenderer class — main public API (render, render_page, table_of_contents, write_assets)
 ├── options.py           # RenderOptions dataclass, Theme enum
 ├── sanitizer.py         # nh3-based sanitisation; fails closed (escapes raw HTML if nh3 missing)
 ├── highlight.py         # Pygments code-block highlighting, language normalisation
@@ -37,7 +38,7 @@ src/github_markdown/
 ├── templates.py         # HTML document wrapper
 ├── icons.py             # Inline SVG icons
 ├── emoji_shortcodes.py  # :shortcode: expansion (optional emoji dep)
-├── cli.py / __main__.py # argparse CLI: python -m github_markdown
+├── cli.py / __main__.py # argparse CLI: python -m md_to_html_renderer
 └── static/
     ├── markdown.css     # structural stylesheet
     └── palettes/        # github + claude palettes (.css + .json metadata, skeleton.* template)
@@ -48,7 +49,7 @@ examples/                # kitchen-sink + theme demo scripts and HTML output
 
 ## Conventions and invariants
 
-- **Public API**: `from github_markdown import GitHubMarkdown`. Renderer
+- **Public API**: `from md_to_html_renderer import MarkdownRenderer`. Renderer
   instances are thread-safe and meant to be built once and reused.
 - **Sanitising is on by default and must fail closed**: never emit raw HTML
   when the sanitiser is unavailable; escape instead

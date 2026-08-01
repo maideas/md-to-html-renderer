@@ -1,4 +1,4 @@
-"""Command-line entry point: ``python -m github_markdown``."""
+"""Command-line entry point: ``python -m md_to_html_renderer``."""
 
 from __future__ import annotations
 
@@ -8,14 +8,14 @@ import sys
 from pathlib import Path
 
 from .options import RenderOptions
-from .renderer import GitHubMarkdown
+from .renderer import MarkdownRenderer
 
 log = logging.getLogger(__name__)
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="github-markdown",
+        prog="md-to-html-renderer",
         description="Render Markdown to HTML styled like GitHub.",
     )
     parser.add_argument(
@@ -133,7 +133,7 @@ def main(argv: list[str] | None = None) -> int:
         sanitize=not args.unsafe,
         math=args.math,
     )
-    renderer = GitHubMarkdown(options)
+    renderer = MarkdownRenderer(options)
 
     source = _read_source(args.input)
 

@@ -1,10 +1,15 @@
-"""GitHub-flavoured Markdown to HTML rendering with GitHub's exact visual style.
+"""Extensible Markdown to HTML renderer with pluggable palettes.
+
+Renders GitHub-Flavoured Markdown to sanitised HTML with syntax
+highlighting. The visual style is palette-driven: the bundled ``github``
+palette matches GitHub's exact look, and additional styles (e.g.
+``claude``, or your own) can be added as data, not code.
 
 Typical use::
 
-    from github_markdown import GitHubMarkdown
+    from md_to_html_renderer import MarkdownRenderer
 
-    renderer = GitHubMarkdown()
+    renderer = MarkdownRenderer()
     fragment = renderer.render("# Hello *world*")
     page = renderer.render_page("# Hello", title="Demo", inline_css=True)
 
@@ -22,12 +27,12 @@ from .palette import (
     load_palette,
     write_palette_css,
 )
-from .renderer import GitHubMarkdown
+from .renderer import MarkdownRenderer
 from .slugger import Slugger, slugify
 
 __all__ = [
     "AnchorStyle",
-    "GitHubMarkdown",
+    "MarkdownRenderer",
     "PaletteError",
     "RenderOptions",
     "Slugger",
@@ -40,4 +45,4 @@ __all__ = [
     "__version__",
 ]
 
-__version__ = "2.1.0"
+__version__ = "3.0.0"

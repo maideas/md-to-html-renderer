@@ -7,8 +7,8 @@ import re
 
 import pytest
 
-from github_markdown import GitHubMarkdown, RenderOptions
-from github_markdown.palette import (
+from md_to_html_renderer import MarkdownRenderer, RenderOptions
+from md_to_html_renderer.palette import (
     TOKEN_PREFIX,
     PaletteError,
     available_palettes,
@@ -32,8 +32,8 @@ def minimal_palette():
 
 
 class TestBundledPalettes:
-    def test_github_and_skeleton_are_available(self):
-        assert {"github", "skeleton"} <= set(available_palettes())
+    def test_all_bundled_palettes_are_available(self):
+        assert {"github", "claude", "skeleton"} <= set(available_palettes())
 
     @pytest.mark.parametrize("name", sorted(available_palettes()))
     def test_every_bundled_palette_validates(self, name):
@@ -67,7 +67,7 @@ class TestBundledPalettes:
     def test_skeleton_covers_every_token_the_structure_uses(self):
         """The skeleton is the template for new palettes, so it must be
         complete or a new palette starts out broken."""
-        structure = GitHubMarkdown.structure_css().read_text(encoding="utf-8")
+        structure = MarkdownRenderer.structure_css().read_text(encoding="utf-8")
         used = {
             name.removeprefix(TOKEN_PREFIX)
             for name in re.findall(r"var\((--md-[a-z0-9-]+)", structure)
@@ -214,35 +214,35 @@ class TestGeneration:
 
 class TestRendererIntegration:
     def test_default_palette_is_github(self):
-        assert "github.css" in GitHubMarkdown().css_hrefs()[0]
+        assert "github.css" in MarkdownRenderer().css_hrefs()[0]
 
     def test_selecting_a_palette(self):
-        renderer = GitHubMarkdown(RenderOptions(palette="skeleton"))
+        renderer = MarkdownRenderer(RenderOptions(palette="skeleton"))
         assert "skeleton.css" in renderer.css_hrefs()[0]
 
     def test_unknown_palette_fails_at_construction_not_at_render(self):
         """A typo should surface at startup, not on the first page view."""
         with pytest.raises(ValueError, match="unknown palette"):
-            GitHubMarkdown(RenderOptions(palette="typo"))
+            MarkdownRenderer(RenderOptions(palette="typo"))
 
     def test_palette_choice_does_not_change_the_html(self):
         """The whole point: retheming is CSS only. Identical markup means you
         can switch palette without re-rendering anything."""
         source = "# Title\n\n```python\nx = 1\n```\n"
-        github = GitHubMarkdown(RenderOptions(palette="github")).render(source)
-        skeleton = GitHubMarkdown(RenderOptions(palette="skeleton")).render(source)
+        github = MarkdownRenderer(RenderOptions(palette="github")).render(source)
+        skeleton = MarkdownRenderer(RenderOptions(palette="skeleton")).render(source)
         assert github == skeleton
 
     def test_data_palette_omitted_for_a_single_palette(self):
         """A lone palette claims :root, so the attribute would be noise."""
-        assert "data-palette" not in GitHubMarkdown().render_page("x")
+        assert "data-palette" not in MarkdownRenderer().render_page("x")
 
     def test_data_palette_emitted_when_several_are_loaded(self):
-        page = GitHubMarkdown().render_page("x", palettes=["github", "skeleton"])
+        page = MarkdownRenderer().render_page("x", palettes=["github", "skeleton"])
         assert 'data-palette="github"' in page
 
     def test_data_palette_can_be_forced(self):
-        renderer = GitHubMarkdown(RenderOptions(emit_palette_attribute=True))
+        renderer = MarkdownRenderer(RenderOptions(emit_palette_attribute=True))
         assert 'data-palette="github"' in renderer.render_page("x")
 
     def test_custom_palette_file_end_to_end(self, tmp_path, minimal_palette):
@@ -254,7 +254,7 @@ class TestRendererIntegration:
         source.write_text(json.dumps(minimal_palette), encoding="utf-8")
         write_palette_css(source, tmp_path / "mine.css")
 
-        renderer = GitHubMarkdown(RenderOptions(palette=str(source)))
+        renderer = MarkdownRenderer(RenderOptions(palette=str(source)))
         page = renderer.render_page("# Hi", inline_css=True)
         assert '[data-palette="test"]' in page
         assert "--md-canvas-default" in page

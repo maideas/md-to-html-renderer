@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import pytest
 
-from github_markdown import GitHubMarkdown, RenderOptions
+from md_to_html_renderer import MarkdownRenderer, RenderOptions
 
 
 @pytest.fixture
 def render():
-    renderer = GitHubMarkdown()
+    renderer = MarkdownRenderer()
     return renderer.render
 
 
@@ -59,7 +59,7 @@ class TestTables:
         assert "<code>c</code>" in html
 
     def test_table_disabled_renders_pipes_as_text(self):
-        html = GitHubMarkdown(RenderOptions(tables=False)).render(
+        html = MarkdownRenderer(RenderOptions(tables=False)).render(
             "| a | b |\n|---|---|\n| 1 | 2 |\n"
         )
         assert "<table>" not in html
@@ -81,7 +81,7 @@ class TestTaskLists:
         assert "disabled" in render("- [ ] todo\n")
 
     def test_editable_option_removes_disabled(self):
-        html = GitHubMarkdown(RenderOptions(tasklists_editable=True)).render("- [ ] a\n")
+        html = MarkdownRenderer(RenderOptions(tasklists_editable=True)).render("- [ ] a\n")
         assert "disabled" not in html
 
     def test_uppercase_x_counts_as_checked(self, render):
@@ -97,7 +97,7 @@ class TestTaskLists:
         assert 'type="checkbox"' not in html
 
     def test_disabled_option_leaves_plain_brackets(self):
-        html = GitHubMarkdown(RenderOptions(tasklists=False)).render("- [ ] todo\n")
+        html = MarkdownRenderer(RenderOptions(tasklists=False)).render("- [ ] todo\n")
         assert 'type="checkbox"' not in html
 
 
@@ -125,7 +125,7 @@ class TestAlerts:
         assert "<ul>" in html and html.count("<li>") == 2
 
     def test_alerts_disabled(self):
-        html = GitHubMarkdown(RenderOptions(alerts=False)).render("> [!NOTE]\n> Body\n")
+        html = MarkdownRenderer(RenderOptions(alerts=False)).render("> [!NOTE]\n> Body\n")
         assert "markdown-alert" not in html
         assert "<blockquote>" in html
 
@@ -141,7 +141,7 @@ class TestStrikethrough:
         assert "<del>gone</del>" in render("~gone~")
 
     def test_single_tilde_can_be_disabled(self):
-        html = GitHubMarkdown(
+        html = MarkdownRenderer(
             RenderOptions(strikethrough_single_tilde=False)
         ).render("~gone~")
         assert "<del>" not in html
@@ -167,12 +167,12 @@ class TestAutolinks:
         assert "<a " not in html
 
     def test_linkify_disabled(self):
-        html = GitHubMarkdown(RenderOptions(linkify=False)).render("https://example.com")
+        html = MarkdownRenderer(RenderOptions(linkify=False)).render("https://example.com")
         assert "<a " not in html
 
     def test_angle_bracket_autolink_always_works(self):
         """``<url>`` is CommonMark, not GFM, so it survives linkify=False."""
-        html = GitHubMarkdown(RenderOptions(linkify=False)).render("<https://example.com>")
+        html = MarkdownRenderer(RenderOptions(linkify=False)).render("<https://example.com>")
         assert '<a href="https://example.com"' in html
 
     def test_trailing_punctuation_is_excluded(self, render):
@@ -189,11 +189,11 @@ class TestLinkRel:
         assert "rel=" not in html
 
     def test_rel_can_be_disabled(self):
-        html = GitHubMarkdown(RenderOptions(link_rel="")).render("[x](https://a.b)")
+        html = MarkdownRenderer(RenderOptions(link_rel="")).render("[x](https://a.b)")
         assert "rel=" not in html
 
     def test_rel_applied_to_all_links_when_option_off(self):
-        renderer = GitHubMarkdown(RenderOptions(absolute_links_only_rel=False))
+        renderer = MarkdownRenderer(RenderOptions(absolute_links_only_rel=False))
         assert "rel=" in renderer.render("[a](#section)")
 
 
@@ -218,14 +218,14 @@ class TestFootnotes:
         assert "[^missing]" in html
 
     def test_footnotes_disabled(self):
-        html = GitHubMarkdown(RenderOptions(footnotes=False)).render(
+        html = MarkdownRenderer(RenderOptions(footnotes=False)).render(
             "Text[^1]\n\n[^1]: Note\n"
         )
         assert "footnote-ref" not in html
 
     def test_fragment_id_prefix_namespaces_footnote_ids(self):
         """Two documents on one page must not fight over ``#fn1``."""
-        renderer = GitHubMarkdown(RenderOptions(fragment_id_prefix="doc1"))
+        renderer = MarkdownRenderer(RenderOptions(fragment_id_prefix="doc1"))
         html = renderer.render("Text[^1]\n\n[^1]: Note\n")
         assert "doc1" in html
 
@@ -248,7 +248,7 @@ class TestEmoji:
         assert "😄" not in html
 
     def test_emoji_disabled(self):
-        html = GitHubMarkdown(RenderOptions(emoji=False)).render(":smile:")
+        html = MarkdownRenderer(RenderOptions(emoji=False)).render(":smile:")
         assert ":smile:" in html
 
     def test_url_containing_colons_is_not_mangled(self, render):
@@ -263,7 +263,7 @@ class TestFrontMatter:
         assert "Body" in html
 
     def test_front_matter_kept_when_disabled(self):
-        html = GitHubMarkdown(RenderOptions(strip_front_matter=False)).render(
+        html = MarkdownRenderer(RenderOptions(strip_front_matter=False)).render(
             "---\ntitle: Hello\n---\n\n# Body\n"
         )
         assert "Body" in html

@@ -4,15 +4,15 @@ from __future__ import annotations
 
 import pytest
 
-from github_markdown import GitHubMarkdown, RenderOptions
-from github_markdown.sanitizer import HAVE_NH3
+from md_to_html_renderer import MarkdownRenderer, RenderOptions
+from md_to_html_renderer.sanitizer import HAVE_NH3
 
 pytestmark = pytest.mark.skipif(not HAVE_NH3, reason="nh3 is not installed")
 
 
 @pytest.fixture
 def render():
-    return GitHubMarkdown().render
+    return MarkdownRenderer().render
 
 
 class TestScriptInjection:
@@ -148,21 +148,21 @@ class TestSanitizerConfiguration:
     def test_unsanitised_mode_passes_raw_html_through(self):
         """Explicitly opting out must actually opt out -- this is the mode for
         trusted, self-authored content."""
-        renderer = GitHubMarkdown(RenderOptions(sanitize=False))
+        renderer = MarkdownRenderer(RenderOptions(sanitize=False))
         assert "<script>" in renderer.render("<script>alert(1)</script>")
 
     def test_allow_html_false_escapes_instead_of_stripping(self):
-        renderer = GitHubMarkdown(RenderOptions(allow_html=False))
+        renderer = MarkdownRenderer(RenderOptions(allow_html=False))
         html = renderer.render("<b>bold</b>")
         assert "&lt;b&gt;" in html
         assert "<b>" not in html
 
     def test_allow_html_false_still_renders_markdown(self):
-        renderer = GitHubMarkdown(RenderOptions(allow_html=False))
+        renderer = MarkdownRenderer(RenderOptions(allow_html=False))
         assert "<em>x</em>" in renderer.render("*x* <b>y</b>")
 
     def test_extra_allowed_tags(self):
-        renderer = GitHubMarkdown(
+        renderer = MarkdownRenderer(
             RenderOptions(extra_allowed_tags=frozenset({"iframe"}))
         )
         assert "<iframe" in renderer.render('<iframe src="https://a.b"></iframe>')
@@ -171,5 +171,5 @@ class TestSanitizerConfiguration:
         """Re-rendering sanitised output must not degrade it further."""
         source = "## Heading\n\n```python\nx = 1\n```\n\n| a |\n|:-:|\n| 1 |\n"
         once = render(source)
-        renderer = GitHubMarkdown()
+        renderer = MarkdownRenderer()
         assert renderer.render(source) == once

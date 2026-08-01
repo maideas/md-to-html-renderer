@@ -1,4 +1,4 @@
-"""The :class:`GitHubMarkdown` renderer."""
+"""The :class:`MarkdownRenderer` renderer — the main public API."""
 
 from __future__ import annotations
 
@@ -36,19 +36,22 @@ _TEXT_BEARING_TOKENS = frozenset({"text", "code_inline"})
 _ABSOLUTE_PREFIXES = ("http://", "https://", "//", "mailto:", "ftp://", "ftps://")
 
 
-class GitHubMarkdown:
-    """Render GitHub-Flavoured Markdown to GitHub-styled HTML.
+class MarkdownRenderer:
+    """Render GitHub-Flavoured Markdown to sanitised, palette-styled HTML.
+
+    The default ``github`` palette reproduces GitHub's exact look; other
+    palettes can be selected via :class:`~md_to_html_renderer.RenderOptions`.
 
     One instance is a reusable, thread-safe renderer::
 
-        renderer = GitHubMarkdown()
+        renderer = MarkdownRenderer()
         html = renderer.render(source)
 
     All per-document state (heading slug counters, footnote numbering) lives in
     the parser ``env`` created fresh on each call, so a single instance can be
     shared across requests or worker threads without locking.
 
-    :param options: A :class:`~github_markdown.RenderOptions`. Omit for
+    :param options: A :class:`~md_to_html_renderer.RenderOptions`. Omit for
         defaults that match how GitHub renders a repository ``.md`` file.
     """
 

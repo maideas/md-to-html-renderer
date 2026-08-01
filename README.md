@@ -1,7 +1,10 @@
-# github-markdown
+# md-to-html-renderer
 
-Render GitHub-Flavoured Markdown to HTML that looks like GitHub — including the
-syntax highlighting — from a reusable Python class.
+Render GitHub-Flavoured Markdown to clean, sanitised HTML — including syntax
+highlighting — from a reusable Python class. The visual style is
+decoupled from the renderer: the bundled `github` palette matches GitHub's
+look exactly, and new styles are added as palette data, not code (see
+[Theming and palettes](#theming-and-palettes)).
 
 - **652/652 CommonMark spec examples pass**, byte for byte. The reference suite
   is vendored into `tests/data/`, so edge cases are verified against the spec
@@ -17,8 +20,8 @@ syntax highlighting — from a reusable Python class.
 From the built wheel:
 
 ```bash
-pip install dist/github_markdown-2.1.0-py3-none-any.whl
-pip install dist/github_markdown-2.1.0-py3-none-any.whl[all]   # + autolinks and emoji
+pip install dist/md_to_html_renderer-3.0.0-py3-none-any.whl
+pip install dist/md_to_html_renderer-3.0.0-py3-none-any.whl[all]   # + autolinks and emoji
 ```
 
 Or from source, for development:
@@ -36,9 +39,9 @@ simply inert, and everything else works unchanged.
 ## Use
 
 ```python
-from github_markdown import GitHubMarkdown
+from md_to_html_renderer import MarkdownRenderer
 
-renderer = GitHubMarkdown()                      # build once, reuse
+renderer = MarkdownRenderer()                      # build once, reuse
 html = renderer.render(markdown_text)            # -> <article class="markdown-body">…
 ```
 
@@ -71,10 +74,10 @@ for entry in renderer.table_of_contents(markdown_text, max_level=3):
 ### Command line
 
 ```bash
-python -m github_markdown README.md -o readme.html
-python -m github_markdown README.md --fragment          # body only
-python -m github_markdown README.md --theme dark -o out.html
-cat notes.md | python -m github_markdown - --fragment
+python -m md_to_html_renderer README.md -o readme.html
+python -m md_to_html_renderer README.md --fragment          # body only
+python -m md_to_html_renderer README.md --theme dark -o out.html
+cat notes.md | python -m md_to_html_renderer - --fragment
 ```
 
 ## Options
@@ -82,9 +85,9 @@ cat notes.md | python -m github_markdown - --fragment
 Everything is configured through one immutable dataclass:
 
 ```python
-from github_markdown import GitHubMarkdown, RenderOptions
+from md_to_html_renderer import MarkdownRenderer, RenderOptions
 
-renderer = GitHubMarkdown(RenderOptions(
+renderer = MarkdownRenderer(RenderOptions(
     breaks=True,                        # newline -> <br>, as in GitHub comments
     heading_id_prefix="user-content-",  # avoid id collisions with your own page
 ))
@@ -168,17 +171,17 @@ property. Adding a theme is therefore a **data edit, not a code change**.
 ### Adding a palette
 
 ```bash
-cp src/github_markdown/static/palettes/skeleton.json  .../palettes/mytheme.json
+cp src/md_to_html_renderer/static/palettes/skeleton.json  .../palettes/mytheme.json
 # fill in the 53 colour tokens for light and dark, set "name": "mytheme"
-python tools/make_palette.py src/github_markdown/static/palettes/mytheme.json
+python tools/make_palette.py src/md_to_html_renderer/static/palettes/mytheme.json
 ```
 
 To replace the approximate Claude palette with extracted values, edit
 `palettes/claude.json` and re-run the same command. No code changes.
 
 ```python
-GitHubMarkdown(RenderOptions(palette="claude"))
-GitHubMarkdown(RenderOptions(palette="/path/to/mytheme.json"))  # outside the package
+MarkdownRenderer(RenderOptions(palette="claude"))
+MarkdownRenderer(RenderOptions(palette="/path/to/mytheme.json"))  # outside the package
 ```
 
 The skeleton's placeholder values are magenta and cyan on purpose: a token you

@@ -17,7 +17,7 @@ from pathlib import Path
 
 import pytest
 
-from github_markdown import GitHubMarkdown, RenderOptions
+from md_to_html_renderer import MarkdownRenderer, RenderOptions
 
 SPEC_PATH = Path(__file__).parent / "data" / "commonmark_spec.json"
 
@@ -59,14 +59,14 @@ def test_spec_fixture_is_complete():
     ids=[f"{ex['example']:03d}-{ex['section'].replace(' ', '-')}" for ex in SPEC_EXAMPLES],
 )
 def test_commonmark_example(example):
-    renderer = GitHubMarkdown(STRICT_COMMONMARK)
+    renderer = MarkdownRenderer(STRICT_COMMONMARK)
     assert renderer.render(example["markdown"]) == example["html"]
 
 
 def test_full_spec_passes_as_a_whole():
     """A single aggregate assertion, so a regression reports the pass rate
     rather than 600 individual failures."""
-    renderer = GitHubMarkdown(STRICT_COMMONMARK)
+    renderer = MarkdownRenderer(STRICT_COMMONMARK)
     failures = [
         ex["example"]
         for ex in SPEC_EXAMPLES
@@ -79,7 +79,7 @@ def test_default_options_never_crash_on_any_spec_example():
     """The strict preset above disables most features. Re-run every example
     through the *default* renderer to prove the full feature set survives all
     652 inputs, including the deliberately malformed ones."""
-    renderer = GitHubMarkdown()
+    renderer = MarkdownRenderer()
     for example in SPEC_EXAMPLES:
         html = renderer.render(example["markdown"])
         assert isinstance(html, str)

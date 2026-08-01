@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from github_markdown.palette import (  # noqa: E402
+from md_to_html_renderer.palette import (  # noqa: E402
     PALETTE_DIR,
     PaletteError,
     available_palettes,

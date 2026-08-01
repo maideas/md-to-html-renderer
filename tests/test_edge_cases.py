@@ -9,12 +9,12 @@ from __future__ import annotations
 
 import pytest
 
-from github_markdown import GitHubMarkdown, RenderOptions
+from md_to_html_renderer import MarkdownRenderer, RenderOptions
 
 
 @pytest.fixture
 def renderer():
-    return GitHubMarkdown()
+    return MarkdownRenderer()
 
 
 @pytest.fixture
@@ -97,21 +97,21 @@ class TestDegenerateInput:
 
 class TestInputLimits:
     def test_oversized_input_is_rejected_with_a_clear_message(self):
-        renderer = GitHubMarkdown(RenderOptions(max_input_bytes=100))
+        renderer = MarkdownRenderer(RenderOptions(max_input_bytes=100))
         with pytest.raises(ValueError, match="max_input_bytes"):
             renderer.render("x" * 200)
 
     def test_limit_counts_bytes_not_characters(self):
-        renderer = GitHubMarkdown(RenderOptions(max_input_bytes=10))
+        renderer = MarkdownRenderer(RenderOptions(max_input_bytes=10))
         with pytest.raises(ValueError):
             renderer.render("é" * 9)  # 18 bytes in UTF-8
 
     def test_zero_limit_means_unlimited(self):
-        renderer = GitHubMarkdown(RenderOptions(max_input_bytes=0))
+        renderer = MarkdownRenderer(RenderOptions(max_input_bytes=0))
         assert "<p>" in renderer.render("x" * 100_000)
 
     def test_oversized_code_block_falls_back_to_plain_text(self):
-        renderer = GitHubMarkdown(RenderOptions(max_highlight_bytes=100))
+        renderer = MarkdownRenderer(RenderOptions(max_highlight_bytes=100))
         html = renderer.render("```python\n" + "x = 1\n" * 500 + "```\n")
         assert "<pre>" in html
         assert '<span class="k">' not in html
@@ -136,7 +136,7 @@ class TestCodeBlockEdgeCases:
         assert "highlight" not in html
 
     def test_guessing_can_be_enabled(self):
-        renderer = GitHubMarkdown(RenderOptions(highlight_guess_language=True))
+        renderer = MarkdownRenderer(RenderOptions(highlight_guess_language=True))
         html = renderer.render("```\ndef hello():\n    return 1\n```\n")
         assert "<span" in html
 
@@ -166,7 +166,7 @@ class TestCodeBlockEdgeCases:
         assert "&lt;script&gt;" in html
 
     def test_highlighting_disabled_keeps_language_class(self):
-        renderer = GitHubMarkdown(RenderOptions(highlight=False))
+        renderer = MarkdownRenderer(RenderOptions(highlight=False))
         html = renderer.render("```python\nx = 1\n```\n")
         assert 'class="language-python"' in html
         assert "<span" not in html.split("<code")[1].split("</code>")[0]
@@ -262,7 +262,7 @@ class TestFeatureCombinations:
         assert "<details>" in html and "<li>" in html
 
     def test_breaks_option_combined_with_a_table(self):
-        renderer = GitHubMarkdown(RenderOptions(breaks=True))
+        renderer = MarkdownRenderer(RenderOptions(breaks=True))
         html = renderer.render("| a |\n|---|\n| 1 |\n\nline\nbreak\n")
         assert "<table>" in html and "<br" in html
 
@@ -300,7 +300,7 @@ class TestIdempotenceAndReuse:
 
     def test_separate_instances_agree(self):
         source = "# Title\n\n## Title\n"
-        assert GitHubMarkdown().render(source) == GitHubMarkdown().render(source)
+        assert MarkdownRenderer().render(source) == MarkdownRenderer().render(source)
 
     def test_concurrent_rendering_is_safe(self, renderer):
         """One renderer shared across threads must not interleave slug state."""

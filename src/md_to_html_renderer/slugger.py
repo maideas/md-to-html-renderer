@@ -59,7 +59,7 @@ def slugify(text: str) -> str:
 class Slugger:
     """Stateful slug generator that keeps ids unique within one document.
 
-    A fresh instance is created per :meth:`~github_markdown.GitHubMarkdown.render`
+    A fresh instance is created per :meth:`~md_to_html_renderer.MarkdownRenderer.render`
     call, which is what keeps the renderer safe to share between threads.
     """
 

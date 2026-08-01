@@ -145,7 +145,7 @@ def sanitize(
     if not HAVE_NH3:
         raise SanitizerUnavailableError(
             "HTML sanitisation requires the 'nh3' package (pip install nh3). "
-            "Either install it, or construct GitHubMarkdown with "
+            "Either install it, or construct MarkdownRenderer with "
             "RenderOptions(sanitize=False) for trusted input only."
         )
 

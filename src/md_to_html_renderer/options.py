@@ -1,4 +1,4 @@
-"""Configuration for :class:`github_markdown.GitHubMarkdown`."""
+"""Configuration for :class:`md_to_html_renderer.MarkdownRenderer`."""
 
 from __future__ import annotations
 

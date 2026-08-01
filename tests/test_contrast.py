@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import pytest
 
-from github_markdown.palette import available_palettes, load_palette
+from md_to_html_renderer.palette import available_palettes, load_palette
 
 #: Body text must be comfortably readable: WCAG AA for normal text.
 MIN_BODY_CONTRAST = 4.5
@@ -103,7 +103,7 @@ def test_syntax_tokens_are_legible_on_their_background(name, mode):
     assert not failures, f"{name}/{mode}: illegible syntax tokens: {failures}"
 
 
-def test_light_and_dark_are_actually_different(name="github"):
+def test_light_and_dark_are_actually_different():
     """A copy-paste slip that leaves both modes identical would otherwise pass
     every other test in the suite."""
     for palette_name in REAL_PALETTES:

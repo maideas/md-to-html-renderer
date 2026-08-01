@@ -1,4 +1,4 @@
-"""Allow ``python -m github_markdown``."""
+"""Allow ``python -m md_to_html_renderer``."""
 
 from .cli import main
 

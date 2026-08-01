@@ -1,4 +1,4 @@
-"""The standalone-page wrapper used by :meth:`GitHubMarkdown.render_page`."""
+"""The standalone-page wrapper used by :meth:`MarkdownRenderer.render_page`."""
 
 from __future__ import annotations
 

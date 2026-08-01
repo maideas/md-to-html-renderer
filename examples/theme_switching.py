@@ -30,7 +30,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from github_markdown import GitHubMarkdown
+from md_to_html_renderer import MarkdownRenderer
 
 HERE = Path(__file__).parent
 
@@ -43,7 +43,7 @@ PALETTES = ["github", "claude"]
 # --------------------------------------------------------------------------
 
 
-def pinned_examples(renderer: GitHubMarkdown, source: str) -> None:
+def pinned_examples(renderer: MarkdownRenderer, source: str) -> None:
     """Write one file per fixed theme.
 
     ``theme="light"`` and ``theme="dark"`` put ``data-theme`` on ``<html>``
@@ -288,7 +288,7 @@ Inline `code`, ~~struck text~~, <mark>highlighted text</mark>, and a
 """
 
 
-def toggle_example(renderer: GitHubMarkdown, source: str) -> Path:
+def toggle_example(renderer: MarkdownRenderer, source: str) -> Path:
     """Build the interactive page."""
     destination = HERE / "theme-switching.html"
     destination.write_text(
@@ -309,7 +309,7 @@ def toggle_example(renderer: GitHubMarkdown, source: str) -> Path:
 # --------------------------------------------------------------------------
 
 
-def side_by_side_example(renderer: GitHubMarkdown, source: str) -> Path:
+def side_by_side_example(renderer: MarkdownRenderer, source: str) -> Path:
     """All four combinations on one page.
 
     Because ``[data-palette]`` and ``[data-theme]`` match *any* element and
@@ -353,11 +353,11 @@ body {{ margin: 0; display: grid; grid-template-columns: 1fr 1fr; }}
     return destination
 
 
-def per_palette_pages(renderer: GitHubMarkdown, source: str) -> list[Path]:
+def per_palette_pages(renderer: MarkdownRenderer, source: str) -> list[Path]:
     """One standalone page per palette, for a straight visual comparison."""
     written = []
     for palette in PALETTES:
-        scoped = GitHubMarkdown(renderer.options.evolve(palette=palette))
+        scoped = MarkdownRenderer(renderer.options.evolve(palette=palette))
         html = scoped.render_page(
             source, title=f"{palette.capitalize()} palette", inline_css=True
         )
@@ -368,7 +368,7 @@ def per_palette_pages(renderer: GitHubMarkdown, source: str) -> list[Path]:
 
 
 def main() -> None:
-    renderer = GitHubMarkdown()
+    renderer = MarkdownRenderer()
     pinned_examples(renderer, DEMO_MARKDOWN)
     written = [
         toggle_example(renderer, DEMO_MARKDOWN),
