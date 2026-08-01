@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from dataclasses import FrozenInstanceError
 from pathlib import Path
 
 import pytest
@@ -11,11 +12,7 @@ from md_to_html_renderer import MarkdownRenderer, RenderOptions
 from md_to_html_renderer.cli import main
 from md_to_html_renderer.highlight import pygments_class_names
 from md_to_html_renderer.palette import (
-    PaletteError,
     available_palettes,
-    build_css,
-    load_palette,
-    validate_palette,
 )
 from md_to_html_renderer.renderer import STRUCTURE_NAME
 
@@ -26,7 +23,7 @@ class TestOptionsValidation:
 
     def test_options_are_immutable(self):
         options = RenderOptions()
-        with pytest.raises(Exception):
+        with pytest.raises(FrozenInstanceError):
             options.breaks = True  # type: ignore[misc]
 
     def test_evolve_returns_a_validated_copy(self):

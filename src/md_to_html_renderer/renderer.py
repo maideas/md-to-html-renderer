@@ -15,7 +15,7 @@ from .emoji_shortcodes import replace_shortcodes
 from .highlight import highlight_code, normalise_language
 from .options import RenderOptions, Theme
 from .palette import STRUCTURE_CSS, PaletteError, palette_css_path
-from .sanitizer import HAVE_NH3, SanitizerUnavailableError, sanitize
+from .sanitizer import HAVE_NH3, sanitize
 from .slugger import Slugger
 from .templates import render_document
 
@@ -526,16 +526,14 @@ class MarkdownRenderer:
         return source.lstrip("\ufeff")
 
     def _sanitize(self, html: str) -> str:
-        try:
-            # rel is applied at the token level by _rule_link_rel, so the
-            # sanitiser passes it through rather than overwriting it.
-            return sanitize(
-                html,
-                force_link_rel=None,
-                extra_tags=self.options.extra_allowed_tags,
-            )
-        except SanitizerUnavailableError:  # pragma: no cover - guarded at init
-            raise
+        # rel is applied at the token level by _rule_link_rel, so the
+        # sanitiser passes it through rather than overwriting it.
+        # SanitizerUnavailableError propagates; it is guarded at init.
+        return sanitize(
+            html,
+            force_link_rel=None,
+            extra_tags=self.options.extra_allowed_tags,
+        )
 
     def _wrap(self, html: str) -> str:
         tag = self.options.wrapper_tag
