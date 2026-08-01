@@ -28,7 +28,7 @@ pip install -e ".[all]"
 python -m pytest tests/ -q        # 967 tests
 ```
 
-Required: `markdown-it-py>=4.1`, `mdit-py-plugins>=0.6`, `Pygments`, `nh3`.
+Required: `markdown-it-py>=4.1`, `mdit-py-plugins>=0.6`, `Pygments>=2.17`, `nh3>=0.2`.
 Optional: `linkify-it-py` (bare-URL autolinking) and `emoji` (`:shortcode:`
 expansion). Both degrade silently -- without them those two features are
 simply inert, and everything else works unchanged.
@@ -95,6 +95,9 @@ renderer = GitHubMarkdown(RenderOptions(
 | `linkify` | `True` | Autolink bare URLs, `www.` hosts and emails |
 | `breaks` | `False` | Single newline becomes `<br>` (GitHub does this in comments, not in files) |
 | `tables`, `tasklists`, `footnotes`, `alerts` | `True` | GFM extensions |
+| `typographer` | `False` | Smart quotes and dashes (GitHub does not do this) |
+| `strikethrough_single_tilde` | `True` | `~x~` strikes through as well as `~~x~~` |
+| `tasklists_editable` | `False` | Leave task-list checkboxes interactive |
 | `emoji` | `True` | Expand `:shortcode:`; needs the `emoji` package |
 | `math` | `False` | Emit `$…$` as KaTeX-ready markup |
 | `strip_front_matter` | `True` | Drop a leading YAML block |
@@ -113,8 +116,10 @@ renderer = GitHubMarkdown(RenderOptions(
 | `max_highlight_bytes` | 256 KiB | Skip highlighting for larger code blocks |
 | `extra_allowed_tags` | `frozenset()` | Additional tags the sanitiser keeps |
 
-Two presets are provided: `COMMENT_PRESET` (matches issue/PR comment rendering)
-and `TRUSTED_PRESET` (no sanitising — only for Markdown you wrote yourself).
+Three presets are provided: `COMMENT_PRESET` (matches issue/PR comment
+rendering), `TRUSTED_PRESET` (no sanitising — only for Markdown you wrote
+yourself) and `SKELETON_PRESET` (renders with the skeleton template palette, so
+unfilled tokens stand out).
 
 ## Security
 
@@ -287,10 +292,12 @@ palette whose body text drops below 4.5:1 or whose syntax colours drop below
 
 ## Examples
 
-Run `python examples/theme_switching.py` to regenerate these.
+Run `python examples/theme_switching.py` to regenerate the theme and palette
+demos (the kitchen sinks are static output).
 
 | File | Shows |
 |---|---|
+| `theme-auto.html` / `theme-light.html` / `theme-dark.html` | The same page with the theme pinned at render time |
 | `theme-switching.html` | Live two-axis switcher: palette × mode, with no-flash preload |
 | `theme-side-by-side.html` | All four combinations on one page, via per-container attributes |
 | `palette-github.html` / `palette-claude.html` | The same document in each palette |

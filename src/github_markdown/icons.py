@@ -71,7 +71,8 @@ ALERT_ICONS: dict[str, str] = {
     ),
 }
 
-#: Human-readable label rendered next to each alert icon.
+#: Human-readable labels for each alert kind, for host pages that want to
+#: render a caption. The renderer itself emits only the icon.
 ALERT_LABELS: dict[str, str] = {
     "note": "Note",
     "tip": "Tip",

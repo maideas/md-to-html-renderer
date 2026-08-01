@@ -4,9 +4,12 @@ Run it::
 
     python examples/theme_switching.py
 
-It writes ``examples/theme-switching.html``: a self-contained page with a
-three-way Auto / Light / Dark switch that retheme's the document instantly,
-without re-rendering the Markdown.
+It regenerates all the theme demos: three pinned-theme pages
+(``theme-auto/light/dark.html``), per-palette pages (``palette-github.html``,
+``palette-claude.html``), a side-by-side grid (``theme-side-by-side.html``) and
+the interactive ``theme-switching.html``: a self-contained page with a two-axis
+palette / theme switcher that rethemes the document instantly, without
+re-rendering the Markdown. The choice persists via ``localStorage``.
 
 The three approaches it demonstrates, in increasing order of flexibility:
 
