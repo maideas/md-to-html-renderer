@@ -163,6 +163,7 @@ static/
 |---|---|
 | `github` | GitHub's Primer tokens, as used on github.com. |
 | `claude` | **Approximate reconstruction**, not extracted from the Claude app and not an official Anthropic theme. Built from the published brand palette (warm cream canvas, clay accent); remaining tokens derived for contrast and harmony. Replace with real values when you have them. |
+| `pi-web-app` | Matches the chat content of the pi-web-app, light and dark. Colours extracted from the app's stylesheet; flat heading scale (h1 = 1.25rem, no heading underlines), no page padding so the preview fills its host pane. |
 | `skeleton` | Template. Placeholders are magenta and cyan so an unfilled token is obvious. Marked `"template": true`, which exempts it from the contrast tests. |
 
 Every colour, font size and radius in `markdown.css` is a `--md-*` custom

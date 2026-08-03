@@ -137,36 +137,40 @@
   margin-top: var(--md-space-heading-top);
   margin-bottom: var(--md-space-block);
   font-weight: 600;
-  line-height: 1.25;
+  line-height: var(--md-heading-line-height, 1.25);
 }
 
+/* Heading sizes, underline and h6 colour are optional palette tokens; the
+   fallbacks below are the GitHub-style defaults every existing palette
+   relies on. */
+
 .markdown-body h1 {
-  padding-bottom: 0.3em;
-  font-size: 2em;
-  border-bottom: 1px solid var(--md-border-muted);
+  padding-bottom: var(--md-heading-underline-offset, 0.3em);
+  font-size: var(--md-h1-size, 2em);
+  border-bottom: var(--md-heading-underline-width, 1px) solid var(--md-border-muted);
 }
 
 .markdown-body h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.5em;
-  border-bottom: 1px solid var(--md-border-muted);
+  padding-bottom: var(--md-heading-underline-offset, 0.3em);
+  font-size: var(--md-h2-size, 1.5em);
+  border-bottom: var(--md-heading-underline-width, 1px) solid var(--md-border-muted);
 }
 
 .markdown-body h3 {
-  font-size: 1.25em;
+  font-size: var(--md-h3-size, 1.25em);
 }
 
 .markdown-body h4 {
-  font-size: 1em;
+  font-size: var(--md-h4-size, 1em);
 }
 
 .markdown-body h5 {
-  font-size: 0.875em;
+  font-size: var(--md-h5-size, 0.875em);
 }
 
 .markdown-body h6 {
-  font-size: 0.85em;
-  color: var(--md-fg-muted);
+  font-size: var(--md-h6-size, 0.85em);
+  color: var(--md-h6-color, var(--md-fg-muted));
 }
 
 /* Heading anchor: hidden until the heading is hovered or the link is focused. */
