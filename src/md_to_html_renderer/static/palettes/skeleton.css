@@ -1,4 +1,4 @@
-/* Skeleton palette -- Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-underline-offset) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.
+/* Skeleton palette -- Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-underline-offset) 'space-table-top'/'space-table-bottom' (table margins) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.
    Generated from skeleton.json by tools/make_palette.py -- edit the JSON, not this file.
 
    Pair with markdown.css, which holds every rule and no colours.
@@ -25,6 +25,8 @@
   --md-border-accent-width: 0.25em;
   --md-space-block: 16px;
   --md-space-heading-top: 24px;
+  --md-space-table-top: 0;
+  --md-space-table-bottom: 16px;
   --md-page-max-width: 1012px;
   --md-page-padding: 32px 24px 64px;
   --md-h1-size: 2em;

@@ -569,6 +569,12 @@
   overflow: auto;
   border-spacing: 0;
   border-collapse: collapse;
+  /* Optional palette tokens --md-space-table-top/-bottom; defaults
+     keep the shared block rule's margins (top 0, bottom
+     --md-space-block). This rule follows the shared one with equal
+     specificity, so it wins. */
+  margin-top: var(--md-space-table-top, 0);
+  margin-bottom: var(--md-space-table-bottom, var(--md-space-block));
 }
 
 .markdown-body table th {
