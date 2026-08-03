@@ -28,7 +28,7 @@ Or from source, for development:
 
 ```bash
 pip install -e ".[all]"
-python -m pytest tests/ -q        # 967 tests
+python -m pytest tests/ -q        # 977 tests
 ```
 
 Required: `markdown-it-py>=4.1`, `mdit-py-plugins>=0.6`, `Pygments>=2.17`, `nh3>=0.2`.
@@ -154,6 +154,7 @@ static/
   palettes/github.json    the token values          <- edit this
   palettes/github.css     compiled from the JSON    <- generated
   palettes/claude.json    approximate Claude theme  (see caveat below)
+  palettes/pi-web-app.json  pi-web-app chat theme, light and dark
   palettes/skeleton.json  template for a new palette
 ```
 
@@ -232,7 +233,7 @@ default however the stylesheets are ordered.
 | Semantic roles | 13 | `accent-fg`, `danger-emphasis`, `attention-muted` |
 | Diff backgrounds | 2 | `diff-add-bg`, `diff-del-bg` |
 | Syntax highlighting | 29 | `syn-keyword`, `syn-string`, `syn-comment` |
-| Typography and shape (`base`) | 14 | `font-body`, `radius`, `space-block` |
+| Typography and shape (`base`) | 24 | `font-body`, `radius`, `space-block`, `h1-size` |
 
 The `base` group is mode-independent and only needs defining once, so a palette
 that changes typography or corner radius — not just colour — needs no extra

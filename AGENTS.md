@@ -9,7 +9,7 @@ data. Pure Python 3.9+, `src/` layout, setuptools build backend, no Makefile.
 
 ```bash
 pip install -e ".[all]"          # dev install (all optional extras)
-python -m pytest tests/ -q       # ~967 tests; CommonMark spec vendored in tests/data/
+python -m pytest tests/ -q       # ~977 tests; CommonMark spec vendored in tests/data/
 python -m md_to_html_renderer README.md -o out.html   # CLI
 python -m build                  # wheel lands in dist/ (gitignored)
 ```
@@ -41,7 +41,7 @@ src/md_to_html_renderer/
 ├── cli.py / __main__.py # argparse CLI: python -m md_to_html_renderer
 └── static/
     ├── markdown.css     # structural stylesheet
-    └── palettes/        # github + claude palettes (.css + .json metadata, skeleton.* template)
+    └── palettes/        # github + claude + pi-web-app palettes (.css + .json metadata, skeleton.* template)
 tests/                   # pytest; commonmark_spec.json is the vendored 652-example spec
 tools/make_palette.py    # generate a new palette from static/palettes/skeleton.*
 examples/                # kitchen-sink + theme demo scripts and HTML output
