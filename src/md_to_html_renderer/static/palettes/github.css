@@ -45,6 +45,8 @@
   --md-table-row-alt-bg: var(--md-canvas-subtle);
   --md-table-header-rule-width: 1px;
   --md-code-border: none;
+  --md-space-code-top: 0;
+  --md-space-code-bottom: 16px;
   --md-accent-emphasis: #0969da;
   --md-accent-fg: #0969da;
   --md-accent-muted: #54aeff66;

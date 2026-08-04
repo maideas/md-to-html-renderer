@@ -1,7 +1,7 @@
 {
   "name": "skeleton",
   "label": "Skeleton",
-  "description": "Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-font), 'space-table-top'/'space-table-bottom' (table margins) and 'table-width'/'table-cell-border'/'table-row-alt-bg' (table look) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.",
+  "description": "Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-font), 'space-table-top'/'space-table-bottom' (table margins), 'space-code-top'/'space-code-bottom' (code block margins) and 'table-width'/'table-cell-border'/'table-row-alt-bg' (table look) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.",
   "template": true,
   "base": {
     "font-body": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
@@ -35,7 +35,9 @@
     "table-cell-border": "1px solid var(--md-border-default)",
     "table-row-alt-bg": "var(--md-canvas-subtle)",
     "table-header-rule-width": "1px",
-    "code-border": "none"
+    "code-border": "none",
+    "space-code-top": "0",
+    "space-code-bottom": "16px"
   },
   "light": {
     "accent-emphasis": "#ff00ff",

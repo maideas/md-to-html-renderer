@@ -520,6 +520,11 @@
 }
 
 .markdown-body pre {
+  /* Optional palette tokens --md-space-code-top/-bottom; defaults keep
+     the shared block rule's margins (top 0, bottom --md-space-block).
+     This rule follows the shared one with equal specificity, so it wins. */
+  margin-top: var(--md-space-code-top, 0);
+  margin-bottom: var(--md-space-code-bottom, var(--md-space-block));
   padding: 16px;
   overflow: auto;
   font-size: var(--md-font-size-code);

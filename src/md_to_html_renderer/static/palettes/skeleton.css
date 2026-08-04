@@ -1,4 +1,4 @@
-/* Skeleton palette -- Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-font), 'space-table-top'/'space-table-bottom' (table margins) and 'table-width'/'table-cell-border'/'table-row-alt-bg' (table look) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.
+/* Skeleton palette -- Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-font), 'space-table-top'/'space-table-bottom' (table margins), 'space-code-top'/'space-code-bottom' (code block margins) and 'table-width'/'table-cell-border'/'table-row-alt-bg' (table look) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.
    Generated from skeleton.json by tools/make_palette.py -- edit the JSON, not this file.
 
    Pair with markdown.css, which holds every rule and no colours.
@@ -45,6 +45,8 @@
   --md-table-row-alt-bg: var(--md-canvas-subtle);
   --md-table-header-rule-width: 1px;
   --md-code-border: none;
+  --md-space-code-top: 0;
+  --md-space-code-bottom: 16px;
   --md-accent-emphasis: #ff00ff;
   --md-accent-fg: #ff00ff;
   --md-accent-muted: #ff00ff;

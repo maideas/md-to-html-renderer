@@ -33,7 +33,9 @@
     "table-cell-border": "none",
     "table-row-alt-bg": "var(--md-canvas-default)",
     "table-header-rule-width": "2px",
-    "code-border": "1px solid var(--md-border-default)"
+    "code-border": "1px solid var(--md-border-default)",
+    "space-code-top": "1em",
+    "space-code-bottom": "1em"
   },
   "light": {
     "accent-emphasis": "#64809E",
