@@ -137,6 +137,7 @@
   margin-top: var(--md-space-heading-top);
   margin-bottom: var(--md-space-block);
   font-weight: 600;
+  font-family: var(--md-heading-font, var(--md-font-body));
   line-height: var(--md-heading-line-height, 1.25);
 }
 
@@ -564,7 +565,7 @@
 
 .markdown-body table {
   display: block;
-  width: max-content;
+  width: var(--md-table-width, max-content);
   max-width: 100%;
   overflow: auto;
   border-spacing: 0;
@@ -584,7 +585,7 @@
 .markdown-body table th,
 .markdown-body table td {
   padding: 6px 13px;
-  border: 1px solid var(--md-border-default);
+  border: var(--md-table-cell-border, 1px solid var(--md-border-default));
 }
 
 .markdown-body table td > :last-child {
@@ -597,7 +598,7 @@
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: var(--md-canvas-subtle);
+  background-color: var(--md-table-row-alt-bg, var(--md-canvas-subtle));
 }
 
 .markdown-body table img {

@@ -1,4 +1,4 @@
-/* Skeleton palette -- Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-underline-offset) 'space-table-top'/'space-table-bottom' (table margins) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.
+/* Skeleton palette -- Template palette. Every colour token below is required (light and dark must define the same set); the heading tokens in 'base' (h1-size ... heading-font), 'space-table-top'/'space-table-bottom' (table margins) and 'table-width'/'table-cell-border'/'table-row-alt-bg' (table look) are optional and fall back to the GitHub-style defaults in markdown.css when omitted. Replace the placeholder magenta/cyan values, rename to your palette, then run python tools/make_palette.py on this file.
    Generated from skeleton.json by tools/make_palette.py -- edit the JSON, not this file.
 
    Pair with markdown.css, which holds every rule and no colours.
@@ -36,9 +36,13 @@
   --md-h5-size: 0.875em;
   --md-h6-size: 0.85em;
   --md-h6-color: var(--md-fg-muted);
+  --md-heading-font: var(--md-font-body);
   --md-heading-line-height: 1.25;
   --md-heading-underline-width: 1px;
   --md-heading-underline-offset: 0.3em;
+  --md-table-width: max-content;
+  --md-table-cell-border: 1px solid var(--md-border-default);
+  --md-table-row-alt-bg: var(--md-canvas-subtle);
   --md-accent-emphasis: #ff00ff;
   --md-accent-fg: #ff00ff;
   --md-accent-muted: #ff00ff;

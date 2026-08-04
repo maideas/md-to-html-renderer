@@ -33,8 +33,20 @@
   --md-border-accent-width: 0.25em;
   --md-space-block: 16px;
   --md-space-heading-top: 24px;
+  --md-space-table-top: 0;
+  --md-space-table-bottom: 16px;
   --md-page-max-width: 1012px;
   --md-page-padding: 32px 24px 64px;
+  --md-h1-size: 2em;
+  --md-h2-size: 1.5em;
+  --md-h3-size: 1.25em;
+  --md-h4-size: 1em;
+  --md-h5-size: 0.875em;
+  --md-h6-size: 0.85em;
+  --md-h6-color: var(--md-fg-muted);
+  --md-heading-line-height: 1.25;
+  --md-heading-underline-width: 1px;
+  --md-heading-underline-offset: 0.3em;
   --md-accent-emphasis: #0969da;
   --md-accent-fg: #0969da;
   --md-accent-muted: #54aeff66;
@@ -347,36 +359,40 @@
   margin-top: var(--md-space-heading-top);
   margin-bottom: var(--md-space-block);
   font-weight: 600;
-  line-height: 1.25;
+  line-height: var(--md-heading-line-height, 1.25);
 }
 
+/* Heading sizes, underline and h6 colour are optional palette tokens; the
+   fallbacks below are the GitHub-style defaults every existing palette
+   relies on. */
+
 .markdown-body h1 {
-  padding-bottom: 0.3em;
-  font-size: 2em;
-  border-bottom: 1px solid var(--md-border-muted);
+  padding-bottom: var(--md-heading-underline-offset, 0.3em);
+  font-size: var(--md-h1-size, 2em);
+  border-bottom: var(--md-heading-underline-width, 1px) solid var(--md-border-muted);
 }
 
 .markdown-body h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.5em;
-  border-bottom: 1px solid var(--md-border-muted);
+  padding-bottom: var(--md-heading-underline-offset, 0.3em);
+  font-size: var(--md-h2-size, 1.5em);
+  border-bottom: var(--md-heading-underline-width, 1px) solid var(--md-border-muted);
 }
 
 .markdown-body h3 {
-  font-size: 1.25em;
+  font-size: var(--md-h3-size, 1.25em);
 }
 
 .markdown-body h4 {
-  font-size: 1em;
+  font-size: var(--md-h4-size, 1em);
 }
 
 .markdown-body h5 {
-  font-size: 0.875em;
+  font-size: var(--md-h5-size, 0.875em);
 }
 
 .markdown-body h6 {
-  font-size: 0.85em;
-  color: var(--md-fg-muted);
+  font-size: var(--md-h6-size, 0.85em);
+  color: var(--md-h6-color, var(--md-fg-muted));
 }
 
 /* Heading anchor: hidden until the heading is hovered or the link is focused. */
@@ -775,6 +791,12 @@
   overflow: auto;
   border-spacing: 0;
   border-collapse: collapse;
+  /* Optional palette tokens --md-space-table-top/-bottom; defaults
+     keep the shared block rule's margins (top 0, bottom
+     --md-space-block). This rule follows the shared one with equal
+     specificity, so it wins. */
+  margin-top: var(--md-space-table-top, 0);
+  margin-bottom: var(--md-space-table-bottom, var(--md-space-block));
 }
 
 .markdown-body table th {

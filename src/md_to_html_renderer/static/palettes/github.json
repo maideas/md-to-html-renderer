@@ -26,9 +26,13 @@
     "h5-size": "0.875em",
     "h6-size": "0.85em",
     "h6-color": "var(--md-fg-muted)",
+    "heading-font": "var(--md-font-body)",
     "heading-line-height": "1.25",
     "heading-underline-width": "1px",
-    "heading-underline-offset": "0.3em"
+    "heading-underline-offset": "0.3em",
+    "table-width": "max-content",
+    "table-cell-border": "1px solid var(--md-border-default)",
+    "table-row-alt-bg": "var(--md-canvas-subtle)"
   },
   "light": {
     "accent-emphasis": "#0969da",
