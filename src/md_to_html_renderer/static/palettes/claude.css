@@ -24,7 +24,7 @@
   --md-radius-large: 8px;
   --md-border-accent-width: 0.2em;
   --md-space-block: 0.5em;
-  --md-space-heading-top: 1em;
+  --md-space-heading-top: 1.4em;
   --md-page-max-width: 784px;
   --md-page-padding: 32px 24px 64px;
   --md-h1-size: 1.4rem;
@@ -37,8 +37,8 @@
   --md-heading-line-height: 1.3;
   --md-heading-underline-width: 0;
   --md-heading-underline-offset: 0;
-  --md-space-table-top: 0.5em;
-  --md-space-table-bottom: 0.5em;
+  --md-space-table-top: 1em;
+  --md-space-table-bottom: 1em;
   --md-heading-font: ui-serif, Georgia, "Times New Roman", serif;
   --md-table-width: 100%;
   --md-table-cell-border: none;

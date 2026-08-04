@@ -513,7 +513,7 @@
 .markdown-body pre[data-lang]::before {
   content: attr(data-lang);
   display: block;
-  margin-bottom: 0.55em;
+  margin-bottom: 0.65em;
   font-family: var(--md-font-body);
   font-size: var(--md-font-size-small);
   color: var(--md-fg-muted);
