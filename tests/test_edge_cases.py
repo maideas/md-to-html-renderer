@@ -53,7 +53,7 @@ class TestDegenerateInput:
 
     def test_unterminated_fence(self, render):
         html = render("```python\nx = 1\n")
-        assert "<pre>" in html
+        assert '<pre data-lang="python">' in html
 
     def test_unterminated_emphasis(self, render):
         assert "*unclosed" in render("*unclosed")

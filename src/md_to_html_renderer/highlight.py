@@ -162,6 +162,13 @@ def highlight_code(
         # fence whose language it does not recognise.
         return block
 
+    # The data-lang attribute feeds the muted language label rendered by
+    # markdown.css (pre[data-lang]::before). Only the highlighted branch
+    # carries it, keeping the plain fallback CommonMark-pure.
+    if language:
+        hint = f' data-lang="{escape(language, quote=True)}"'
+        block = f"<pre{hint}><code{code_class}>{body}</code></pre>\n"
+
     scope = escape(f"highlight highlight-{linguist_scope(language)}", quote=True)
     return f'<div class="{scope}">{block}</div>\n'
 

@@ -94,6 +94,8 @@ ALLOWED_ATTRIBUTES: dict[str, set[str]] = {
     "abbr": {"title"},
     "bdo": {"dir"},
     "details": {"open"},
+    # Feeds the language label on highlighted code blocks.
+    "pre": {"data-lang"},
     # The icon markup we emit ourselves.
     "svg": {"viewBox", "viewbox", "width", "height", "version", "fill",
             "xmlns", "focusable", "preserveAspectRatio"},

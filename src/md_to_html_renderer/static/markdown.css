@@ -508,6 +508,17 @@
   font-size: var(--md-font-size-code);
 }
 
+/* Language label above highlighted code blocks (the renderer emits
+   data-lang on the pre; hidden when the attribute is absent). */
+.markdown-body pre[data-lang]::before {
+  content: attr(data-lang);
+  display: block;
+  margin-bottom: 0.3em;
+  font-family: var(--md-font-body);
+  font-size: var(--md-font-size-small);
+  color: var(--md-fg-muted);
+}
+
 .markdown-body pre {
   padding: 16px;
   overflow: auto;
@@ -580,6 +591,7 @@
 
 .markdown-body table th {
   font-weight: 600;
+  text-align: left;
 }
 
 .markdown-body table th,
