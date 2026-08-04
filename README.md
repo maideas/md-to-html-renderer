@@ -233,7 +233,7 @@ default however the stylesheets are ordered.
 | Semantic roles | 13 | `accent-fg`, `danger-emphasis`, `attention-muted` |
 | Diff backgrounds | 2 | `diff-add-bg`, `diff-del-bg` |
 | Syntax highlighting | 29 | `syn-keyword`, `syn-string`, `syn-comment` |
-| Typography and shape (`base`) | 30 | `font-body`, `radius`, `space-block`, `h1-size`, `space-table-top`, `table-width` |
+| Typography and shape (`base`) | 32 | `font-body`, `radius`, `space-block`, `h1-size`, `space-table-top`, `table-width`, `code-border` |
 
 The `base` group is mode-independent and only needs defining once, so a palette
 that changes typography or corner radius — not just colour — needs no extra

@@ -513,7 +513,7 @@
 .markdown-body pre[data-lang]::before {
   content: attr(data-lang);
   display: block;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.55em;
   font-family: var(--md-font-body);
   font-size: var(--md-font-size-small);
   color: var(--md-fg-muted);
@@ -526,6 +526,7 @@
   line-height: var(--md-line-height-code);
   color: var(--md-fg-default);
   background-color: var(--md-canvas-subtle);
+  border: var(--md-code-border, none);
   border-radius: var(--md-radius);
   word-wrap: normal;
 }
@@ -611,6 +612,11 @@
 
 .markdown-body table tr:nth-child(2n) {
   background-color: var(--md-table-row-alt-bg, var(--md-canvas-subtle));
+}
+
+/* The rule below the header row: slightly thicker via an optional token */
+.markdown-body table tbody tr:first-child {
+  border-top-width: var(--md-table-header-rule-width, 1px);
 }
 
 .markdown-body table img {

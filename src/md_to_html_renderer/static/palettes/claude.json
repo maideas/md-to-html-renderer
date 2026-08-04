@@ -32,7 +32,9 @@
     "heading-font": "ui-serif, Georgia, \"Times New Roman\", serif",
     "table-width": "100%",
     "table-cell-border": "none",
-    "table-row-alt-bg": "var(--md-canvas-default)"
+    "table-row-alt-bg": "var(--md-canvas-default)",
+    "table-header-rule-width": "2px",
+    "code-border": "1px solid var(--md-border-default)"
   },
   "light": {
     "canvas-default": "#F5F2EA",
@@ -43,7 +45,7 @@
     "fg-subtle": "#ABA595",
     "fg-on-emphasis": "#FFFFFF",
     "border-default": "#E4DFD2",
-    "border-muted": "#ECE8DB",
+    "border-muted": "#D8D2C2",
     "neutral-muted": "#1f1e1d14",
     "accent-fg": "#B4552D",
     "accent-emphasis": "#C96442",

@@ -43,6 +43,8 @@
   --md-table-width: 100%;
   --md-table-cell-border: none;
   --md-table-row-alt-bg: var(--md-canvas-default);
+  --md-table-header-rule-width: 2px;
+  --md-code-border: 1px solid var(--md-border-default);
   --md-canvas-default: #F5F2EA;
   --md-canvas-subtle: #EDE9DE;
   --md-canvas-inset: #E7E2D4;
@@ -51,7 +53,7 @@
   --md-fg-subtle: #ABA595;
   --md-fg-on-emphasis: #FFFFFF;
   --md-border-default: #E4DFD2;
-  --md-border-muted: #ECE8DB;
+  --md-border-muted: #D8D2C2;
   --md-neutral-muted: #1f1e1d14;
   --md-accent-fg: #B4552D;
   --md-accent-emphasis: #C96442;

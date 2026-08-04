@@ -33,7 +33,9 @@
     "heading-underline-offset": "0.3em",
     "table-width": "max-content",
     "table-cell-border": "1px solid var(--md-border-default)",
-    "table-row-alt-bg": "var(--md-canvas-subtle)"
+    "table-row-alt-bg": "var(--md-canvas-subtle)",
+    "table-header-rule-width": "1px",
+    "code-border": "none"
   },
   "light": {
     "accent-emphasis": "#ff00ff",

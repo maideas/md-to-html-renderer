@@ -43,6 +43,8 @@
   --md-table-width: max-content;
   --md-table-cell-border: 1px solid var(--md-border-default);
   --md-table-row-alt-bg: var(--md-canvas-subtle);
+  --md-table-header-rule-width: 1px;
+  --md-code-border: none;
   --md-accent-emphasis: #0969da;
   --md-accent-fg: #0969da;
   --md-accent-muted: #54aeff66;
