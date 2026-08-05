@@ -3,7 +3,7 @@
 Renders GitHub-Flavoured Markdown to sanitised HTML with syntax
 highlighting. The visual style is palette-driven: the bundled ``github``
 palette matches GitHub's exact look, and additional styles (e.g.
-``claude``, or your own) can be added as data, not code.
+``cream``, or your own) can be added as data, not code.
 
 Typical use::
 

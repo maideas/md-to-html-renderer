@@ -33,7 +33,7 @@ def minimal_palette():
 
 class TestBundledPalettes:
     def test_all_bundled_palettes_are_available(self):
-        assert {"github", "claude", "skeleton"} <= set(available_palettes())
+        assert {"github", "cream", "skeleton"} <= set(available_palettes())
 
     @pytest.mark.parametrize("name", sorted(available_palettes()))
     def test_every_bundled_palette_validates(self, name):

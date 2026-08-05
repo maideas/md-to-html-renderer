@@ -6,7 +6,7 @@ Run it::
 
 It regenerates all the theme demos: three pinned-theme pages
 (``theme-auto/light/dark.html``), per-palette pages (``palette-github.html``,
-``palette-claude.html``), a side-by-side grid (``theme-side-by-side.html``) and
+``palette-cream.html``), a side-by-side grid (``theme-side-by-side.html``) and
 the interactive ``theme-switching.html``: a self-contained page with a two-axis
 palette / theme switcher that rethemes the document instantly, without
 re-rendering the Markdown. The choice persists via ``localStorage``.
@@ -17,7 +17,7 @@ The three approaches it demonstrates, in increasing order of flexibility:
    Simplest, but the choice is baked into the HTML.
 2. **Toggle attributes on ``<html>``** -- one line of JavaScript, no server
    round trip. This is what the generated page does, across both axes:
-   ``data-palette`` (GitHub or Claude) and ``data-theme`` (light or dark).
+   ``data-palette`` (GitHub or Cream) and ``data-theme`` (light or dark).
 3. **Set the attributes on any container** -- lets one page show all four
    combinations at once.
 
@@ -36,7 +36,7 @@ HERE = Path(__file__).parent
 
 #: Both palettes are shipped so the page can switch between them at runtime.
 #: With a single palette loaded, ``data-palette`` would be unnecessary.
-PALETTES = ["github", "claude"]
+PALETTES = ["github", "cream"]
 
 # --------------------------------------------------------------------------
 # 1. Server-side: pin a theme at render time.
@@ -73,7 +73,7 @@ NO_FLASH_SCRIPT = """
   var theme = stored('md-theme');
   if (theme === 'light' || theme === 'dark') { root.setAttribute('data-theme', theme); }
   var palette = stored('md-palette');
-  if (palette === 'github' || palette === 'claude') { root.setAttribute('data-palette', palette); }
+  if (palette === 'github' || palette === 'cream') { root.setAttribute('data-palette', palette); }
 })();
 """
 
@@ -197,7 +197,7 @@ PAGE = """<!DOCTYPE html>
     <h1>Palette</h1>
     <div class="theme-switch" role="group" aria-label="Colour palette">
       <button type="button" data-set-palette="github" aria-pressed="false">GitHub</button>
-      <button type="button" data-set-palette="claude" aria-pressed="false">Claude</button>
+      <button type="button" data-set-palette="cream" aria-pressed="false">Cream</button>
     </div>
   </div>
   <div class="theme-group">
@@ -229,14 +229,14 @@ CSS custom properties change. Nothing is re-fetched and nothing re-renders.
 > whole mechanism -- two attributes, two independent axes.
 
 > [!IMPORTANT]
-> The Claude palette here is an **approximate reconstruction**, not values
-> extracted from the Claude app, and not an official Anthropic theme.
+> The Cream palette matches the cream theme of the pi-web-app chat UI:
+> warm cream canvas, terracotta accent, rust links and serif headings.
 
 ## What the switch actually does
 
 ```javascript
 // Pick a palette:
-document.documentElement.setAttribute('data-palette', 'claude');
+document.documentElement.setAttribute('data-palette', 'cream');
 
 // Pin a mode, or drop the attribute to follow the operating system:
 document.documentElement.setAttribute('data-theme', 'dark');

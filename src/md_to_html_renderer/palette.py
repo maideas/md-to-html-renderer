@@ -6,8 +6,8 @@ and is entirely colour-free. Adding a theme therefore means adding one data
 file; no Python and no structural CSS changes.
 
     {
-      "name": "claude",
-      "label": "Claude",
+      "name": "cream",
+      "label": "Cream",
       "base":  { "radius": "12px", ... },   optional, mode-independent
       "light": { "canvas-default": "#ffffff", ... },
       "dark":  { "canvas-default": "#1a1a1a", ... }
@@ -16,8 +16,8 @@ file; no Python and no structural CSS changes.
 :func:`build_css` turns that into a stylesheet whose selectors handle the two
 independent axes -- palette *family* and light/dark *mode*::
 
-    <html data-palette="claude" data-theme="dark">   pinned
-    <html data-palette="claude">                     follows the OS
+    <html data-palette="cream" data-theme="dark">    pinned
+    <html data-palette="cream">                      follows the OS
     <html>                                           default palette, follows the OS
 
 Tokens named in ``base`` are emitted once. Because CSS custom properties

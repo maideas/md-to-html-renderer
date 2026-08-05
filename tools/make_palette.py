@@ -2,8 +2,8 @@
 """Compile a palette JSON file into its stylesheet.
 
     python tools/make_palette.py                        # rebuild all bundled palettes
-    python tools/make_palette.py path/to/claude.json    # compile one
-    python tools/make_palette.py claude.json -o out.css
+    python tools/make_palette.py path/to/cream.json     # compile one
+    python tools/make_palette.py cream.json -o out.css
 
 Adding a theme is a data edit: copy palettes/skeleton.json, fill in the values,
 run this. No Python and no structural CSS changes.

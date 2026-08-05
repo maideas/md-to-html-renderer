@@ -1,7 +1,7 @@
 {
-  "name": "claude",
-  "label": "Claude (pi-web-app)",
-  "description": "Matches the claude theme of the pi-web-app chat UI: warm cream canvas, terracotta accent, rust links and inline code, serif headings, full-width tables with horizontal rules only. Syntax highlighting kept from the original approximation.",
+  "name": "cream",
+  "label": "Cream",
+  "description": "Matches the cream theme of the pi-web-app chat UI: warm cream canvas, terracotta accent, rust links and inline code, serif headings, full-width tables with horizontal rules only. Syntax highlighting kept from the original approximation.",
   "base": {
     "font-body": "system-ui, sans-serif",
     "font-mono": "ui-monospace, monospace",

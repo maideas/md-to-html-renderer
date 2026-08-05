@@ -4,57 +4,77 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Kitchen Sink — claude</title>
+<title>Kitchen Sink — cream</title>
 <style>
-/* Claude (approximate) palette -- APPROXIMATE reconstruction of Claude's chat rendering, NOT extracted from the app and not an official Anthropic theme. Built from the published brand palette (warm cream canvas, clay accent) with the remaining tokens derived for contrast and harmony. Replace with real values when you have them: see README, 'Adding a palette'.
-   Generated from claude.json by tools/make_palette.py -- edit the JSON, not this file.
+/* Cream palette -- Matches the cream theme of the pi-web-app chat UI: warm cream canvas, terracotta accent, rust links and inline code, serif headings, full-width tables with horizontal rules only. Syntax highlighting kept from the original approximation.
+   Generated from cream.json by tools/make_palette.py -- edit the JSON, not this file.
 
    Pair with markdown.css, which holds every rule and no colours.
 
      <html>                                   this palette, following the OS
      <html data-theme="dark">                 this palette, pinned dark
-     <html data-palette="claude">                explicit, when several are loaded
-     <div  data-palette="claude" data-theme="light">   one subtree only
+     <html data-palette="cream">                 explicit, when several are loaded
+     <div  data-palette="cream" data-theme="light">   one subtree only
 
    Set data-palette and data-theme on the same element. */
 
 :root:not([data-palette]),
-[data-palette="claude"] {
+[data-palette="cream"] {
   color-scheme: light;
-  --md-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --md-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --md-font-body: system-ui, sans-serif;
+  --md-font-mono: ui-monospace, monospace;
   --md-font-size: 16px;
-  --md-font-size-code: 85%;
+  --md-font-size-code: 90%;
   --md-font-size-small: 12px;
-  --md-line-height: 1.6;
+  --md-line-height: 1.5;
   --md-line-height-code: 1.5;
-  --md-radius: 10px;
-  --md-radius-large: 12px;
+  --md-radius: 6px;
+  --md-radius-large: 8px;
   --md-border-accent-width: 0.2em;
-  --md-space-block: 16px;
-  --md-space-heading-top: 28px;
+  --md-space-block: 0.5em;
+  --md-space-heading-top: 1.4em;
   --md-page-max-width: 784px;
   --md-page-padding: 32px 24px 64px;
-  --md-canvas-default: #faf9f5;
-  --md-canvas-subtle: #f0eee6;
-  --md-canvas-inset: #e9e6dc;
-  --md-fg-default: #1f1e1d;
-  --md-fg-muted: #5f5e58;
-  --md-fg-subtle: #82807a;
-  --md-fg-on-emphasis: #ffffff;
-  --md-border-default: #dcd9cd;
-  --md-border-muted: #e6e3d9;
+  --md-h1-size: 1.4rem;
+  --md-h2-size: 1.2rem;
+  --md-h3-size: 1.1rem;
+  --md-h4-size: 1rem;
+  --md-h5-size: 0.95rem;
+  --md-h6-size: 0.9rem;
+  --md-h6-color: var(--md-fg-default);
+  --md-heading-line-height: 1.3;
+  --md-heading-underline-width: 0;
+  --md-heading-underline-offset: 0;
+  --md-space-table-top: 1em;
+  --md-space-table-bottom: 1em;
+  --md-heading-font: ui-serif, Georgia, "Times New Roman", serif;
+  --md-table-width: 100%;
+  --md-table-cell-border: none;
+  --md-table-row-alt-bg: var(--md-canvas-default);
+  --md-table-header-rule-width: 2px;
+  --md-code-border: 1px solid var(--md-border-default);
+  --md-space-code-top: 1em;
+  --md-space-code-bottom: 1em;
+  --md-canvas-default: #F5F2EA;
+  --md-canvas-subtle: #EDE9DE;
+  --md-canvas-inset: #E7E2D4;
+  --md-fg-default: #1F1E1C;
+  --md-fg-muted: #7E796E;
+  --md-fg-subtle: #ABA595;
+  --md-fg-on-emphasis: #FFFFFF;
+  --md-border-default: #E4DFD2;
+  --md-border-muted: #D8D2C2;
   --md-neutral-muted: #1f1e1d14;
-  --md-accent-fg: #a8492a;
-  --md-accent-emphasis: #c1552f;
-  --md-accent-muted: #d9775766;
-  --md-success-fg: #2f6b39;
-  --md-success-emphasis: #2f6b39;
-  --md-attention-fg: #7a5300;
-  --md-attention-emphasis: #946300;
-  --md-attention-muted: #f5e6c8;
-  --md-danger-fg: #a32b1e;
-  --md-danger-emphasis: #b23a2c;
+  --md-accent-fg: #B4552D;
+  --md-accent-emphasis: #C96442;
+  --md-accent-muted: #EAE4D3;
+  --md-success-fg: #3E7C4F;
+  --md-success-emphasis: #3E7C4F;
+  --md-attention-fg: #6B5B2E;
+  --md-attention-emphasis: #E0C88F;
+  --md-attention-muted: #F7EEDD;
+  --md-danger-fg: #B54334;
+  --md-danger-emphasis: #96352A;
   --md-done-fg: #6b46a8;
   --md-done-emphasis: #7a5bb5;
   --md-diff-add-bg: #dff0e0;
@@ -92,7 +112,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-palette]):not([data-theme="light"]),
-  [data-palette="claude"]:not([data-theme="light"]) {
+  [data-palette="cream"]:not([data-theme="light"]) {
     color-scheme: dark;
     --md-canvas-default: #262624;
     --md-canvas-subtle: #1f1e1d;
@@ -151,7 +171,7 @@
 }
 
 :root:not([data-palette])[data-theme="dark"],
-[data-palette="claude"][data-theme="dark"] {
+[data-palette="cream"][data-theme="dark"] {
   color-scheme: dark;
   --md-canvas-default: #262624;
   --md-canvas-subtle: #1f1e1d;
@@ -347,36 +367,41 @@
   margin-top: var(--md-space-heading-top);
   margin-bottom: var(--md-space-block);
   font-weight: 600;
-  line-height: 1.25;
+  font-family: var(--md-heading-font, var(--md-font-body));
+  line-height: var(--md-heading-line-height, 1.25);
 }
 
+/* Heading sizes, underline and h6 colour are optional palette tokens; the
+   fallbacks below are the GitHub-style defaults every existing palette
+   relies on. */
+
 .markdown-body h1 {
-  padding-bottom: 0.3em;
-  font-size: 2em;
-  border-bottom: 1px solid var(--md-border-muted);
+  padding-bottom: var(--md-heading-underline-offset, 0.3em);
+  font-size: var(--md-h1-size, 2em);
+  border-bottom: var(--md-heading-underline-width, 1px) solid var(--md-border-muted);
 }
 
 .markdown-body h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.5em;
-  border-bottom: 1px solid var(--md-border-muted);
+  padding-bottom: var(--md-heading-underline-offset, 0.3em);
+  font-size: var(--md-h2-size, 1.5em);
+  border-bottom: var(--md-heading-underline-width, 1px) solid var(--md-border-muted);
 }
 
 .markdown-body h3 {
-  font-size: 1.25em;
+  font-size: var(--md-h3-size, 1.25em);
 }
 
 .markdown-body h4 {
-  font-size: 1em;
+  font-size: var(--md-h4-size, 1em);
 }
 
 .markdown-body h5 {
-  font-size: 0.875em;
+  font-size: var(--md-h5-size, 0.875em);
 }
 
 .markdown-body h6 {
-  font-size: 0.85em;
-  color: var(--md-fg-muted);
+  font-size: var(--md-h6-size, 0.85em);
+  color: var(--md-h6-color, var(--md-fg-muted));
 }
 
 /* Heading anchor: hidden until the heading is hovered or the link is focused. */
@@ -713,13 +738,30 @@
   font-size: var(--md-font-size-code);
 }
 
+/* Language label above highlighted code blocks (the renderer emits
+   data-lang on the pre; hidden when the attribute is absent). */
+.markdown-body pre[data-lang]::before {
+  content: attr(data-lang);
+  display: block;
+  margin-bottom: 0.65em;
+  font-family: var(--md-font-body);
+  font-size: var(--md-font-size-small);
+  color: var(--md-fg-muted);
+}
+
 .markdown-body pre {
+  /* Optional palette tokens --md-space-code-top/-bottom; defaults keep
+     the shared block rule's margins (top 0, bottom --md-space-block).
+     This rule follows the shared one with equal specificity, so it wins. */
+  margin-top: var(--md-space-code-top, 0);
+  margin-bottom: var(--md-space-code-bottom, var(--md-space-block));
   padding: 16px;
   overflow: auto;
   font-size: var(--md-font-size-code);
   line-height: var(--md-line-height-code);
   color: var(--md-fg-default);
   background-color: var(--md-canvas-subtle);
+  border: var(--md-code-border, none);
   border-radius: var(--md-radius);
   word-wrap: normal;
 }
@@ -770,21 +812,28 @@
 
 .markdown-body table {
   display: block;
-  width: max-content;
+  width: var(--md-table-width, max-content);
   max-width: 100%;
   overflow: auto;
   border-spacing: 0;
   border-collapse: collapse;
+  /* Optional palette tokens --md-space-table-top/-bottom; defaults
+     keep the shared block rule's margins (top 0, bottom
+     --md-space-block). This rule follows the shared one with equal
+     specificity, so it wins. */
+  margin-top: var(--md-space-table-top, 0);
+  margin-bottom: var(--md-space-table-bottom, var(--md-space-block));
 }
 
 .markdown-body table th {
   font-weight: 600;
+  text-align: left;
 }
 
 .markdown-body table th,
 .markdown-body table td {
   padding: 6px 13px;
-  border: 1px solid var(--md-border-default);
+  border: var(--md-table-cell-border, 1px solid var(--md-border-default));
 }
 
 .markdown-body table td > :last-child {
@@ -797,7 +846,12 @@
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: var(--md-canvas-subtle);
+  background-color: var(--md-table-row-alt-bg, var(--md-canvas-subtle));
+}
+
+/* The rule below the header row: slightly thicker via an optional token */
+.markdown-body table tbody tr:first-child {
+  border-top-width: var(--md-table-header-rule-width, 1px);
 }
 
 .markdown-body table img {
@@ -1283,7 +1337,7 @@ this line follows a <code>&lt;br&gt;</code>.</p>
     return "never highlighted"
 </code></pre>
 <p>Python:</p>
-<div class="highlight highlight-source-python"><pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<div class="highlight highlight-source-python"><pre data-lang="python"><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Point</span><span class="p">:</span>
@@ -1299,7 +1353,7 @@ this line follows a <code>&lt;br&gt;</code>.</p>
 </code></pre>
 </div>
 <p>JavaScript:</p>
-<div class="highlight highlight-source-javascript"><pre><code class="language-javascript"><span class="kd">const</span><span class="w"> </span><span class="nx">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Map</span><span class="p">();</span>
+<div class="highlight highlight-source-javascript"><pre data-lang="javascript"><code class="language-javascript"><span class="kd">const</span><span class="w"> </span><span class="nx">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Map</span><span class="p">();</span>
 
 <span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">fetchUser</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">signal</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cache</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">id</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">cache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
@@ -1312,7 +1366,7 @@ this line follows a <code>&lt;br&gt;</code>.</p>
 </code></pre>
 </div>
 <p>HTML:</p>
-<div class="highlight highlight-text-html-basic"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<div class="highlight highlight-text-html-basic"><pre data-lang="html"><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Demo<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">"intro"</span><span class="p">&gt;</span>Hello <span class="ni">&amp;amp;</span> welcome<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
@@ -1320,7 +1374,7 @@ this line follows a <code>&lt;br&gt;</code>.</p>
 </code></pre>
 </div>
 <p>Shell:</p>
-<div class="highlight highlight-source-bash"><pre><code class="language-bash"><span class="ch">#!/usr/bin/env bash</span>
+<div class="highlight highlight-source-bash"><pre data-lang="bash"><code class="language-bash"><span class="ch">#!/usr/bin/env bash</span>
 <span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
 <span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="o">[[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"missing: </span><span class="nv">$file</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span><span class="p">;</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
@@ -1329,7 +1383,7 @@ this line follows a <code>&lt;br&gt;</code>.</p>
 </code></pre>
 </div>
 <p>Diff:</p>
-<div class="highlight highlight-source-diff"><pre><code class="language-diff"><span class="gd">--- a/config.yaml</span>
+<div class="highlight highlight-source-diff"><pre data-lang="diff"><code class="language-diff"><span class="gd">--- a/config.yaml</span>
 <span class="gi">+++ b/config.yaml</span>
 <span class="gu">@@ -1,4 +1,4 @@</span>
 <span class="w"> </span>name: service
@@ -1339,12 +1393,12 @@ this line follows a <code>&lt;br&gt;</code>.</p>
 </code></pre>
 </div>
 <p>SQL and JSON:</p>
-<div class="highlight highlight-source-sql"><pre><code class="language-sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">o</span><span class="p">.</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">orders</span>
+<div class="highlight highlight-source-sql"><pre data-lang="sql"><code class="language-sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">o</span><span class="p">.</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">orders</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">id</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">created_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">'2024-01-01'</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">o</span><span class="p">.</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre>
 </div>
-<div class="highlight highlight-source-json"><pre><code class="language-json"><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w"> </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w"> </span><span class="nt">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"nested"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.5</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight highlight-source-json"><pre data-lang="json"><code class="language-json"><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w"> </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w"> </span><span class="nt">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"nested"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.5</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
 </code></pre>
 </div>
 <p>An unknown language falls back to plain text:</p>

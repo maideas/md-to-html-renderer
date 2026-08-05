@@ -32,5 +32,6 @@ SVG path data in src/github_markdown/icons.py is from GitHub's Octicons
 tests/data/commonmark_spec.json is derived from the CommonMark specification
 test suite (https://spec.commonmark.org), CC-BY-SA 4.0.
 
-static/palettes/claude.json is an approximate reconstruction, not extracted
-from any Anthropic product and not an official Anthropic theme.
+static/palettes/cream.json matches the cream theme of the pi-web-app chat UI;
+it is an original theme for this project, not extracted from any third-party
+product.

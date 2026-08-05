@@ -41,7 +41,7 @@ src/md_to_html_renderer/
 ├── cli.py / __main__.py # argparse CLI: python -m md_to_html_renderer
 └── static/
     ├── markdown.css     # structural stylesheet
-    └── palettes/        # github + claude + pi-web-app palettes (.css + .json metadata, skeleton.* template)
+    └── palettes/        # github + cream + pi-web-app palettes (.css + .json metadata, skeleton.* template)
 tests/                   # pytest; commonmark_spec.json is the vendored 652-example spec
 tools/make_palette.py    # generate a new palette from static/palettes/skeleton.*
 examples/                # kitchen-sink + theme demo scripts and HTML output

@@ -153,7 +153,7 @@ static/
   markdown.css            ~950 lines of rules, zero colour values
   palettes/github.json    the token values          <- edit this
   palettes/github.css     compiled from the JSON    <- generated
-  palettes/claude.json    approximate Claude theme  (see caveat below)
+  palettes/cream.json     warm cream theme (matches pi-web-app's cream theme)
   palettes/pi-web-app.json  pi-web-app chat theme, light and dark
   palettes/skeleton.json  template for a new palette
 ```
@@ -163,7 +163,7 @@ static/
 | Name | Notes |
 |---|---|
 | `github` | GitHub's Primer tokens, as used on github.com. |
-| `claude` | **Approximate reconstruction**, not extracted from the Claude app and not an official Anthropic theme. Built from the published brand palette (warm cream canvas, clay accent); remaining tokens derived for contrast and harmony. Replace with real values when you have them. |
+| `cream` | Matches the cream theme of the pi-web-app chat UI: warm cream canvas, terracotta accent, rust links and inline code, serif headings. |
 | `pi-web-app` | Matches the chat content of the pi-web-app, light and dark. Colours extracted from the app's stylesheet; flat heading scale (h1 = 1.25rem, no heading underlines), no page padding so the preview fills its host pane. |
 | `skeleton` | Template. Placeholders are magenta and cyan so an unfilled token is obvious. Marked `"template": true`, which exempts it from the contrast tests. |
 
@@ -178,11 +178,11 @@ cp src/md_to_html_renderer/static/palettes/skeleton.json  .../palettes/mytheme.j
 python tools/make_palette.py src/md_to_html_renderer/static/palettes/mytheme.json
 ```
 
-To replace the approximate Claude palette with extracted values, edit
-`palettes/claude.json` and re-run the same command. No code changes.
+To tweak a bundled palette, edit its JSON (e.g. `palettes/cream.json`) and
+re-run the same command. No code changes.
 
 ```python
-MarkdownRenderer(RenderOptions(palette="claude"))
+MarkdownRenderer(RenderOptions(palette="cream"))
 MarkdownRenderer(RenderOptions(palette="/path/to/mytheme.json"))  # outside the package
 ```
 
@@ -200,16 +200,16 @@ Palette *family* and light/dark *mode* are independent:
 |---|---|
 | `<html>` | default palette, follows the OS |
 | `<html data-theme="dark">` | default palette, pinned dark |
-| `<html data-palette="claude">` | Claude palette, follows the OS |
-| `<html data-palette="claude" data-theme="light">` | Claude palette, pinned light |
-| `<div data-palette="claude" data-theme="dark">` | that subtree only |
+| `<html data-palette="cream">` | Cream palette, follows the OS |
+| `<html data-palette="cream" data-theme="light">` | Cream palette, pinned light |
+| `<div data-palette="cream" data-theme="dark">` | that subtree only |
 
 Set both attributes on the same element. Switching either is one line of
 JavaScript and no re-render:
 
 ```javascript
 document.documentElement.setAttribute('data-theme', 'dark');
-document.documentElement.setAttribute('data-palette', 'claude');
+document.documentElement.setAttribute('data-palette', 'cream');
 document.documentElement.removeAttribute('data-theme');   // back to following the OS
 ```
 
@@ -217,8 +217,8 @@ A single palette claims `:root`, so `data-palette` is only needed when you load
 more than one. To ship several and switch at runtime:
 
 ```python
-renderer.write_assets("static/", palettes=["github", "claude"])
-page = renderer.render_page(source, palettes=["github", "claude"])
+renderer.write_assets("static/", palettes=["github", "cream"])
+page = renderer.render_page(source, palettes=["github", "cream"])
 ```
 
 `:root:not([data-palette])` is deliberately more specific than a bare
@@ -305,8 +305,8 @@ demos (the kitchen sinks are static output).
 | `theme-auto.html` / `theme-light.html` / `theme-dark.html` | The same page with the theme pinned at render time |
 | `theme-switching.html` | Live two-axis switcher: palette × mode, with no-flash preload |
 | `theme-side-by-side.html` | All four combinations on one page, via per-container attributes |
-| `palette-github.html` / `palette-claude.html` | The same document in each palette |
-| `kitchen-sink-github.html` / `kitchen-sink-claude.html` | Every supported construct, in each palette |
+| `palette-github.html` / `palette-cream.html` | The same document in each palette |
+| `kitchen-sink-github.html` / `kitchen-sink-cream.html` | Every supported construct, in each palette |
 
 ## Licence
 

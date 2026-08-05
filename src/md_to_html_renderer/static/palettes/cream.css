@@ -1,17 +1,17 @@
-/* Claude (pi-web-app) palette -- Matches the claude theme of the pi-web-app chat UI: warm cream canvas, terracotta accent, rust links and inline code, serif headings, full-width tables with horizontal rules only. Syntax highlighting kept from the original approximation.
-   Generated from claude.json by tools/make_palette.py -- edit the JSON, not this file.
+/* Cream palette -- Matches the cream theme of the pi-web-app chat UI: warm cream canvas, terracotta accent, rust links and inline code, serif headings, full-width tables with horizontal rules only. Syntax highlighting kept from the original approximation.
+   Generated from cream.json by tools/make_palette.py -- edit the JSON, not this file.
 
    Pair with markdown.css, which holds every rule and no colours.
 
      <html>                                   this palette, following the OS
      <html data-theme="dark">                 this palette, pinned dark
-     <html data-palette="claude">                explicit, when several are loaded
-     <div  data-palette="claude" data-theme="light">   one subtree only
+     <html data-palette="cream">                 explicit, when several are loaded
+     <div  data-palette="cream" data-theme="light">   one subtree only
 
    Set data-palette and data-theme on the same element. */
 
 :root:not([data-palette]),
-[data-palette="claude"] {
+[data-palette="cream"] {
   color-scheme: light;
   --md-font-body: system-ui, sans-serif;
   --md-font-mono: ui-monospace, monospace;
@@ -104,7 +104,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-palette]):not([data-theme="light"]),
-  [data-palette="claude"]:not([data-theme="light"]) {
+  [data-palette="cream"]:not([data-theme="light"]) {
     color-scheme: dark;
     --md-canvas-default: #262624;
     --md-canvas-subtle: #1f1e1d;
@@ -163,7 +163,7 @@
 }
 
 :root:not([data-palette])[data-theme="dark"],
-[data-palette="claude"][data-theme="dark"] {
+[data-palette="cream"][data-theme="dark"] {
   color-scheme: dark;
   --md-canvas-default: #262624;
   --md-canvas-subtle: #1f1e1d;
